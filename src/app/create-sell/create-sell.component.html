@@ -1,0 +1,359 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="col-md-12">
+      <div class="card">
+        <form action="/" class="form-horizontal ng-untouched ng-pristine ng-valid" method="get" novalidate="">
+          <div class="card-header card-header-text" data-background-color="rose">
+            <h4 class="card-title">สร้างรายการขาย</h4>
+          </div>
+          <div class="card-content">
+            <div class="row">
+              <div class="col-md-6 pd">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="ประเภท" type="text">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="รายการ" type="text">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="วันทำการการ" type="date">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="อ้างอิง" type="text">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="ช่องทางการขาย" type="text">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <select class="form-control">
+                      <option>ไม่มีภาษี</option>
+                      <option>แยกภาษีมูลค่าเพิ่ม 7%</option>
+                      <option>รวมภาษีมูลค่าเพิ่ม 7%</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="ตัวแทนจำหน่าย" type="text">
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="col-md-6 pd">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="ชื่อลูกค้า" type="text">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="รหัสลูกค้า" type="text">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="เบอร์โทรศัพท์ลูกค้า" type="text">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="อีเมลลูกค้า" type="email">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <textarea class="form-control" placeholder="ที่อยู่ลูกค้า" rows="5"></textarea>
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="checkbox form-horizontal-checkbox">
+                    <label>
+                      <input name="optionsCheckboxes" type="checkbox" [(ngModel)]="checkNo"> กำหนดเลขผู้เสียภาษี, ชื่อสาขา, เลขที่สาขา
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-12" *ngIf="checkNo">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="เลขประจำตัวผู้เสียภาษี" type="text">
+                  </div>
+                </div>
+                <div class="col-sm-12" *ngIf="checkNo">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="ชื่อสาขา" type="text">
+                  </div>
+                </div>
+                <div class="col-sm-12" *ngIf="checkNo">
+                  <div class="form-group">
+                    <input class="form-control" placeholder="เลขที่สาขา" type="text">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-10"></div>
+      <div class="col-md-2">
+        <button class="btn" type="submit" green>+ เพิ่มสินค้า</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header dropdown" data-background-color="red">
+            <h4 class="title">เพิ่มข้อมูลสินค้า</h4>
+            <!-- <p class="category">Here is a subtitle for this table</p> -->
+          </div>
+
+          <div class="card-content table-responsive">
+            <table class="table">
+              <thead class="text-danger">
+                <tr>
+                  <th>#</th>
+                  <th>รหัส</th>
+                  <th>ชื่อสินค้า</th>
+                  <th class="text-center">จำนวน</th>
+                  <th class="text-center">มูลค่าต่อหน่วย</th>
+                  <th class="text-center">ส่วนลดต่อหน่วย</th>
+                  <th class="text-center">รวม</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>P0000001</td>
+                  <td>ชุดเดรสสั้น คอกลม แขนบาน ลายขวาง ทรงใส่สบาย (สีดำ)</td>
+                  <td class="text-center">10</td>
+                  <td class="text-center">790</td>
+                  <td class="text-center">90</td>
+                  <td class="text-center">700</td>
+                </tr>
+
+                <tr>
+                  <td>2</td>
+                  <td>P0000002</td>
+                  <td>KK เดรสสั้น แขน 3 ส่วน ลายริ้ว (สีดำ) รุ่น 8801</td>
+                  <td class="text-center">10</td>
+                  <td class="text-center">790</td>
+                  <td class="text-center">90</td>
+                  <td class="text-center">700</td>
+                </tr>
+
+                <tr>
+                  <td>3</td>
+                  <td>P0000003</td>
+                  <td>KK ชุดเดรสสั้นน่ารัก สีดำตัดขาว รุ่น LW100</td>
+                  <td class="text-center">10</td>
+                  <td class="text-center">790</td>
+                  <td class="text-center">90</td>
+                  <td class="text-center">700</td>
+                </tr>
+
+                <tr>
+                  <td>4</td>
+                  <td>P0000004</td>
+                  <td>Korea ชุดเดรสแฟชั่น ทรงหรูน่ารัก แขนระบาย(สีดำ) รุ่น 5309</td>
+                  <td class="text-center">10</td>
+                  <td class="text-center">790</td>
+                  <td class="text-center">90</td>
+                  <td class="text-center">700</td>
+                </tr>
+
+                <tr>
+                  <td>5</td>
+                  <td>P0000005</td>
+                  <td>Charming ชุดเดรสดำชายระบาย ผ้ายืดเนื้อดีไม่ต้องรีด รุ่น D108</td>
+                  <td class="text-center">10</td>
+                  <td class="text-center">790</td>
+                  <td class="text-center">90</td>
+                  <td class="text-center">700</td>
+                </tr>
+
+
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>ส่วนลด</td>
+                  <td>180.00</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>มูลค่ารวมก่อนภาษี</td>
+                  <td>18.00</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>ภาษีมูลค่าเพิ่ม (7%)</td>
+                  <td>180.00</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>มูลค่ารวม</td>
+                  <td>180.00</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>ภาษีหัก ณ ที่จ่าย</td>
+                  <td>3 %</td>
+                </tr>
+              </tfoot>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <form action="/" class="form-horizontal ng-untouched ng-pristine ng-valid" method="get" novalidate="">
+            <div class="card-header card-header-text" data-background-color="rose">
+              <h4 class="card-title">ข้อมูลการจัดส่งสินค้า</h4>
+            </div>
+            <div class="card-content">
+              <div class="row">
+                <div class="col-md-6 pd">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <input class="form-control" placeholder="วันส่งสินค้า" type="date">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <select class="form-control">
+                        <option>Thailand Post</option>
+                        <option>Kerry</option>
+                        <option>LINE MAN</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <input class="form-control" placeholder="ค่าส่ง (ที่เรียกเก็บจากลูกค้า)" type="text">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <input class="form-control" placeholder="Tracking No." type="text">
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <div class="col-md-6 pd">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <input class="form-control" placeholder="ชื่อผู้รับ" type="text">
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <textarea class="form-control" placeholder="ที่อยู่/จัดส่ง" rows="5"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 pd">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <b>มูลค่ารวมสุทธิ</b>
+                    </div>
+                    <div class="col-sm-9">
+                      10.00 บาท
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <b>ยอดชำระรวม</b>
+                    </div>
+                    <div class="col-sm-9">
+                      10.00 บาท
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <b>การชำระเงิน</b>
+                    </div>
+                    <div class="col-sm-9">
+                      100 เงินสด
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3">
+
+                    </div>
+                    <div class="col-sm-9">
+                      <div class="form-group">
+                        <select class="form-control">
+                          <option>รอโอนสินค้า</option>
+                          <option>โอนทันทีออกจากคลังสินค้า</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 pd">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <textarea class="form-control" placeholder="หมายเหตุ" rows="6"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-center">
+          <button class="btn" type="submit" blue>บันทึก</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>

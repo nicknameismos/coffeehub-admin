@@ -1,0 +1,278 @@
+.card img {
+    /* height: 180px; */
+}
+
+
+/* .nav-tabs {
+    background: #f75251 !important;
+} */
+
+.btn-color {
+    border-radius: 10rem;
+    background-color: rgb(255, 0, 0);
+    width: 8rem;
+}
+
+.tel-col-size {
+    width: 12rem;
+}
+
+.adr-col-size{
+    width: 14rem;
+}
+
+.input-col-size {
+    width: 11rem;
+}
+
+[name-col-size] {
+    width: 17rem;
+}
+
+[index-col-size] {
+    width: 2rem;
+}
+
+.action-col-size {
+    width: 12rem;
+    text-align: center;
+    vertical-align: text-top;
+}
+
+[subText] {
+    font-size: 1.2rem;
+}
+
+[adr-column-width] {
+    width: 20rem;
+    word-break: keep-all;
+}
+
+.btn-border {
+    /* background-color: white; */
+    /* color: black; */
+    border: 2px solid #4CAF50;
+    /* Green */
+    border-radius: 10rem;
+}
+
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ic {
+    width: 34px !important;
+    height: 34px !important;
+}
+
+.lo {
+    position: absolute;
+    right: 4px;
+    margin-top: 6px;
+}
+
+.b-bage {
+    background-color: red;
+    border-radius: 6px;
+    padding: 4px;
+    color: #ffffff;
+}
+
+.lo2 {
+    text-align: right;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.pd-4 {
+    padding: 4px;
+}
+
+.bd {
+    border: 1px #e2e2e2 solid;
+    border-radius: 4px;
+}
+
+.im {
+    height: 250px;
+    width: 100%;
+}
+
+.hv {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    height: 86%;
+    z-index: 1;
+    width: 92%;
+    margin-top: 24px;
+}
+
+.mgt-148 {
+    margin-top: 128px;
+}
+
+.pc {
+    text-align: center;
+}
+
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background-color: #9E9E9E;
+    border-color: #9E9E9E;
+    color: #ffffff;
+}
+
+.pagination>li>a {
+    color: #9e9e9e;
+}
+
+.nav-tabs {
+    background: #ffffff00;
+    /* height: 4rem; */
+}
+
+.nav-tabs>li>a,
+.nav-tabs>li>a:hover,
+.nav-tabs>li>a:focus {
+    color: black !important;
+    font-size: 1.2em;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+    border-bottom: 3px solid rgb(14, 156, 14) !important;
+}
+
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.addBTN {
+    background-color: #ffffff00;
+    color: rgb(34, 143, 34);
+    border-color: rgb(34, 143, 34);
+    border-radius: 4rem;
+    border: 3px solid;
+    font-size: 1.5rem;
+}
+
+.addBTN :focus{
+    background-color: #ffffff00;
+}
+
+.addBTN :active{
+    background-color: #f72222fb !important;
+}
+/* .btn .btn:hover .btn:focus .open > .btn.dropdown-toggle .open > .btn.dropdown-toggle:focus .open > .btn.dropdown-toggle:hover {
+    background-color: #ff1515fa;
+} */
+
+
+
+.edit-color {
+    padding: 0 0.8rem 0 0.8rem;
+    color: orange;
+    font-size: 2.3rem;
+    cursor: pointer;
+    margin-top: 0.8rem;
+}
+
+.del-color {
+    padding: 0 0.8rem 0 0.8rem;
+    color: red;
+    font-size: 2.3rem;
+    cursor: pointer;
+    margin-top: 0.8rem;
+}
+
+
+/* .search-box{
+    border-radius: 5rem;
+    border: solid 0.3rem black; 
+} */
+
+.del-color:hover {
+    background-color: #928f8f5d;
+}
+
+.edit-color:hover {
+    background-color: #928f8f5d;
+}
+
+.dropdown-menu {
+    min-width: 90px;
+}
+
+.btn-success {
+    background-color: #ffffff00;
+}
+
+.btn,
+.btn:hover,
+.btn:focus .open>.btn.dropdown-toggle:hover,
+.btn.btn-default,
+.btn.btn-default:hover {
+    background-color: #ffffff00 !important;
+    border-color: rgb(34, 143, 34);
+    color: rgb(34, 143, 34) !important;
+}
+
+.toggle-color {
+    /* color: rgb(78, 78, 78) !important; */
+}
+
+.close {
+    font-size: 4rem;
+}
+
+.sb {
+    height: 48px;
+    border: 2px solid;
+    border-radius: 40px;
+}
+
+.inner-sb {
+    position: absolute;
+    margin-left: 50px;
+    border-right: 2px solid;
+    padding-right: 4px;
+    height: 46px;
+    margin-top: -2px;
+}
+
+.txb {
+    margin-top: 14px;
+    position: absolute;
+    margin-left: -36px;
+    font-weight: bold;
+}
+
+.tb {
+    position: absolute;
+    margin-top: -22px;
+    width: 220px;
+    margin-left: 68px;
+}
+.adr-ovf{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 30rem;
+}

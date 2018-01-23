@@ -1,0 +1,99 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Kanit', sans-serif;
+}
+
+.addADS {
+    background-color: #ffffff00;
+    color: rgb(34, 143, 34);
+    border-color: rgb(34, 143, 34);
+    border-radius: 4rem;
+    border: 3px solid;
+    font-size: 1.5rem;
+}
+
+.block-text {
+    background-color: rgba(0, 0, 0, 0.418);
+    height: 3rem;
+    bottom: 24px;
+    text-align: center;
+    position: absolute;
+    width: 85%;
+}
+
+.ads-text {
+    color: white;
+    vertical-align: -webkit-baseline-middle;
+}
+
+.panel-trans {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.panel-heading {
+    border-radius: 3rem;
+    background-color: white;
+}
+
+.panel-title {
+    color: black;
+}
+
+.thumbnail>img {
+    height: 125px;
+    width: auto;
+}
+.thumbnail>iframe{
+    height: 125px;
+    width: 232.5px;
+}
+
+.cl-success {
+    color: greenyellow;
+}
+
+.cl-red {
+    color: red;
+}
+
+.cl-orange {
+    color: orange;
+}
+
+.scrollmenu {
+    overflow-y: -webkit-paged-x;
+    white-space: nowrap !important;
+    width: 100%;
+    margin-left: 0.5%;
+    margin-right: 3.5%;
+    height: 18.5rem;
+}
+
+.col-scroll {
+    display: inline-block;
+}
+.verti-middle{
+    vertical-align: -webkit-baseline-middle;
+  
+}
+.text-status{
+    font-size: 1.4rem;  
+    display: inline-block;
+    vertical-align: super;
+}
+.img-size{
+    height: 20rem;
+    width: auto;
+}
+.yt-width{
+    width: 50%;
+}
+input[type=file] {
+    display: none;
+}

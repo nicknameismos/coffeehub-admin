@@ -1,0 +1,21 @@
+.card .card-header.card-header-text {
+    display: inline-block;
+}
+
+.pd {
+    padding: 0px 30px 0px 30px !important;
+}
+
+.checkbox label {
+    color: #000;
+}
+
+[blue] {
+    background-color: #00bcd4;
+    color: #fff;
+}
+
+[green] {
+    background-color: #4caf50;
+    color: #fff;
+}

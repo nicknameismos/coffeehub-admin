@@ -1,0 +1,414 @@
+<div class="main-content">
+  <!-- start shop content -->
+  <div *ngIf="!enableCropImage">
+    <div class="row text-center" *ngIf="shop._id">
+
+      <div class="col-sm-2 col-md-2 col-lg-2 "></div>
+      <div class="col-sm-8 col-md-8 col-lg-8 ">
+        <div class="card">
+          <div class="card-block text-center padding-all">
+            <ngx-gallery *ngIf="shop.promoteimage && shop.promoteimage.length > 0" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+            <h4 *ngIf="!shop.promoteimage || shop.promoteimage.length == 0" style="font-family: 'Kanit', sans-serif;">ร้านนี้ยังไม่มีรูปภาพโปรโมทร้านค่ะ</h4>
+          </div>
+        </div>
+
+        <button class="btn" type="button" (click)="uploadPromoteImage()">
+          <i class="material-icons">add_a_photo</i> เพิ่มรูปโปรโมทร้าน
+        </button>
+        <input type="file" #promoteimgInput accept="image/*" [(ngModel)]="promoteImg" (change)="onPromoteImgChange($event)" style="visibility: hidden;"
+        />
+      </div>
+      <div class=" col-sm-2 col-md-2 col-lg-2 "></div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+
+        <div class="card">
+          <div class="card-header cw">
+            <div class="row fix-height">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-4">ข้อมูลร้านค้า</div>
+              <div class="col-lg-9 col-md-9 col-sm-9 col-xs-8 text-right no-padding">
+                <button class="btn btn-warning btn-size-small" *ngIf="isEditshopMode == false && shop._id" (click)="changeEditShopMode()">
+                  <i class="material-icons edit-size">edit</i>
+                </button>
+                <button type="submit" class="btn btn-success" *ngIf="isEditshopMode == true" (click)="save()">บันทึก</button>
+                <!-- <button class="btn btn-success" *ngIf="!shop._id" (click)="save()">บันทึก</button> -->
+                <button class="btn btn-danger" *ngIf="shop._id && isEditshopMode == true" (click)="changeEditShopMode()">ยกเลิก</button>
+                <!-- <button class="btn btn-danger" *ngIf="!shop._id" (click)="cancelEditShop()">กลับสู่หน้าจัดการร้านค้า</button> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="card-block">
+            <div class="row">
+              <div class="col-lg-2 col-md-3 col-sm-4 col-xs-4">
+                <div class="btn-group btn-group-vertical" role="group" aria-label="...">
+                  <button type="button" [class]="activeMenu[0]" btn-fb-checked (click)="selectTab(0)">ข้อมูลเกี่ยวกับร้านค้า</button>
+                  <button type="button" [class]="activeMenu[1]" btn-fb-checked (click)="selectTab(1)">ข้อมูลติดต่อร้านค้า</button>
+                  <button type="button" [class]="activeMenu[2]" btn-fb-checked (click)="selectTab(2)">วันเวลาเปิดปิดร้าน</button>
+                  <button type="button" [class]="activeMenu[3]" btn-fb-checked (click)="selectTab(3)">ที่อยู่ร้าน</button>
+                </div>
+              </div>
+              <div class="col-lg-10 col-md-9 col-sm-8 col-xs-8">
+
+
+                <!-- SHOP INFO -->
+                <div class="card-block" *ngIf="selectTabs == 0">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="btn-group">
+                        <button type="button" [disabled]="blockInput" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="true">
+                          เลือกประเภทร้านค้า
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <p class="text-select-cate" *ngFor="let item of categoryShopList" (click)="selectCate(item._id)">{{item.name}}
+                            <img *ngIf="checkeds[item._id]" class="check_po check_icon" src="https://image.flaticon.com/icons/svg/189/189677.svg" alt="icon">
+                          </p>
+                        </ul>
+                      </div>
+                      <span *ngFor="let cateSelect of shop.categories"> {{cateSelect.name}} </span>
+
+                      <div class="form-group">
+                        <input type="text" class="form-control" [disabled]="blockInput" placeholder="ชื่อร้าน" name="shopName" [(ngModel)]="shop.name">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" [disabled]="blockInput" placeholder="ชื่อร้าน (ภาษาอังกฤษ)" name="shopNameEn" [(ngModel)]="shop.name_eng">
+                      </div>
+
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="text" class="form-control" [disabled]="blockInput" placeholder="รายละเอียดร้าน" name="detail" [(ngModel)]="shop.detail">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- SHOP INFO -->
+
+
+                <!-- SHOP CONTACT INFO -->
+                <div class="card-block" *ngIf="selectTabs == 1">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="email" class="form-control" [disabled]="blockInput" placeholder="อีเมล" name="email" email="true" [(ngModel)]="shop.email">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" [disabled]="blockInput" placeholder="หมายเลขโทรศัพท์" name="tel" [(ngModel)]="shop.tel">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" [disabled]="blockInput" placeholder="Facebook" name="Facebook" [(ngModel)]="shop.facebook">
+                      </div>
+                      <div class="form-group">
+                        <input type="text" class="form-control" [disabled]="blockInput" placeholder="Line" name="Line" [(ngModel)]="shop.line">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- SHOP CONTACT INFO -->
+
+
+                <!-- SHOP TIME - CLOSE -->
+                <div class="card-block" *ngIf="selectTabs == 2">
+                  <div class="row">
+
+                    <div class="col-md-3 text-center" (click)="openTime()" *ngIf="isEditshopMode == true">
+                      <img class="img" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511499758/pp_clfpol.jpg" alt="image">
+                    </div>
+                    <div class="col-md-3" *ngFor="let item of timeList;let i = index">
+                      <div class="card card-time-size" style="margin: 0px 0;">
+                        <span class="bin" (click)="deleteTime(i)" *ngIf="isEditshopMode == true">
+                          <i class="material-icons">delete</i>
+                        </span>
+                        <div class="card-block text-center">
+                          <h4 class="card-title" style="text-align: center;">{{item.description}}</h4>
+                          <p class="card-text">เวลาเปิด {{item.timestart}} น.</p>
+                          <p class="card-text">เวลาปิด {{item.timeend}} น.</p>
+                          <div class="time-elaspe">
+                            <span *ngFor="let item2 of item.days">{{item2}} </span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row no-padding" *ngIf="showeditTime">
+                    <div class="col-xs-12">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="form-group">
+                            <label for="timeDetail">รายละเอียด</label>
+                            <input type="text" class="form-control" placeholder="ระบุชื่อช่วงเวลา เช่น ส.-อ." name="timeDetail" [(ngModel)]="times.description">
+                          </div>
+                        </div>
+                        <div class="col-lg-3">
+                          <div class="form-group">
+                            <label for="start">เวลาเปิด</label>
+                            <input type="time" class="form-control" name="start" [(ngModel)]="times.timestart">
+                          </div>
+                        </div>
+                        <div class="col-lg-3">
+                          <div class="form-group">
+                            <label for="end">เวลาปิด</label>
+                            <input type="time" class="form-control" name="end" [(ngModel)]="times.timeend">
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <label for="daySelect">เลือกวันที่ร้านเปิดทำการ</label>
+                          <div name="daySelect" class="add-padding-left">
+                            <input type="checkbox" name="" id="" (change)="selectDay(0)"> วันอาทิตย์
+                            <input type="checkbox" name="" id="" (change)="selectDay(1)"> วันจันทร์
+                            <input type="checkbox" name="" id="" (change)="selectDay(2)"> วันอังคาร
+                            <input type="checkbox" name="" id="" (change)="selectDay(3)"> วันพุธ
+                            <input type="checkbox" name="" id="" (change)="selectDay(4)"> วันพฤหัสบดี
+                            <input type="checkbox" name="" id="" (change)="selectDay(5)"> วันศุกร์
+                            <input type="checkbox" name="" id="" (change)="selectDay(6)"> วันเสาร์
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                    <div class="ct">
+                      <button class="btn btn-primary" (click)="saveTime()">เพิ่ม</button>
+                      <button class="btn btn-danger" (click)="cancelTime()">ยกเลิก</button>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- SHOP TIME - CLOSE -->
+
+
+                <!-- SHOP ADDRESS -->
+                <div class="card-block" *ngIf="selectTabs == 3">
+                  <div class="form-group">
+                    <textarea rows="1" class="form-control ct" placeholder="ที่อยู่" name="addr" [(ngModel)]="address"></textarea>
+                  </div>
+                  <p class="pin" (click)="openSelectMap()">
+                    <i class="material-icons">room</i>
+                  </p>
+                </div>
+                <div *ngIf="showeMap">
+                  <input #pacinput id="pac-input" class="controls m2" type="text" placeholder="ค้นหาสถานที่">
+                  <div #map class="map"></div>
+                  <div class="ct">
+                    <button class="btn btn-info" (click)="saveMap()">ยืนยัน</button>
+                  </div>
+                </div>
+                <!-- SHOP ADDRESS -->
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="shopID">
+      <div class="col-xs-12">
+        <div class="card">
+          <div class="card-header cw">
+            จัดการสินค้า
+          </div>
+
+          <!-- MANAGE CATE & PRODUCT ZONE -->
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="h" style="border-bottom: none;">Category</h4>
+              </div>
+            </div>
+
+            <div class="row scrollmenu">
+              <!-- <div class="row scroll-x" [dragula]='"zone1"'> -->
+
+              <!-- ADD CATE -->
+              <div class="col-md-2 col-scroll" (click)="updateCateImg()">
+                <img class="img" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511499758/pp_clfpol.jpg" alt="image">
+                <input type="file" #cateimgInput accept="image/*" [(ngModel)]="cateImg" (change)="onCateImgChange($event,cateModal)" style="visibility: hidden;"
+                />
+              </div>
+
+              <!-- ADD CATE -->
+
+
+              <!-- SHOW CATEGOY ZONE -->
+              <div class="col-2 col-scroll" *ngFor="let item of cateList;let i = index">
+                <div style="margin-right:20px;" *ngIf="item && item._id">
+                  <div class="deleteCateClass">
+                    <i class="material-icons add-dropShadow" (click)="deleteCategory(item._id)">delete</i>
+                  </div>
+                  <div class="addEditClass">
+                    <i class="material-icons add-dropShadow" (click)="editCategory('edit',cateModal,item)">create</i>
+                  </div>
+                  <div class="imgEditClass" [class]="selectedStyle[item._id]">
+                    <img style="width:150px;height:150px;" (click)="filterByCate(item._id, i)" [src]="item.image ? item.image : 'http://www.jordans.com/~/media/jordans%20redesign/no-image-found.ashx?h=275&la=en&w=275&hash=F87BC23F17E37D57E2A0B1CC6E2E3EEE312AAD5B'"
+                      alt="image" cate-img>
+                  </div>
+                  <div class="box-text">
+                    <span style="text-align: center;color: #ffffff;height: 3rem;vertical-align: -webkit-baseline-middle;">
+                      {{item.name}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- SHOW CATEGOY ZONE -->
+            </div>
+
+            <!-- SHOW CATEGOY ZONE -->
+            <!-- </div> -->
+
+            <!-- SHOW PRODUCT IN CATE ZONE -->
+            <div class="row" *ngIf="shop.items && shop.items.length > 0">
+              <div class="col-md-12">
+                <h4 class="h">Products</h4>
+                <div [sortablejs]="shop.items">
+                  <div class="row">
+                    <div class="col-md-2 col-over col-bottom" *ngFor="let item of products; let i = index">
+                      <div *ngIf="item.name == 'default'">
+                        <img class="img" data-toggle="modal" data-target="#modalproduct" (click)="createProduct(i,item)" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511499758/pp_clfpol.jpg"
+                          alt="image" cate-img>
+                      </div>
+                      <div *ngIf="item.name != 'default'">
+                        <img class="img" (click)="editProduct(i,selectedCate)" [src]="item.images[0]" alt="image" cate-img>
+                        <p class="name-label">{{item.name}}
+                          <span class="price-label">{{item.price}}.-</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SHOW PRODUCT IN CATE ZONE -->
+          </div>
+          <!-- MANAGE CATE & PRODUCT ZONE -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end shop content -->
+
+  <div *ngIf="enableCropImage">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <image-cropper [imageChangedEvent]="imagePreCrop" format="jpeg" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" [resizeToWidth]="128"
+          (imageCropped)="imageCropped($event)"></image-cropper>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-center">
+          <button class="btn btn-success" (click)="saveCrop()">บันทึก</button>
+          <button class="btn btn-danger" data-dismiss="modalproduct" (click)="cancelCrop()">ยกเลิก</button>
+        </div>
+      </div>
+  </div>
+
+  <!-- ---------------------- ADD OR EDIT CATEGORY ---------------------- -->
+  <div class="modal fade" #modal tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left"> {{CE_action_category}}หมวดหมู่</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-center">
+              <div class="loader" *ngIf="!updateOrEditCateImg" #loadingControl>
+                <img src="./assets/img/35.png" alt="">
+              </div>
+              <img class="img-2" *ngIf="updateOrEditCateImg" [src]="updateOrEditCateImg" alt="image">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-left">
+              <div class="form-group">
+                <h5>ชื่อหมวดหมู่</h5>
+                <input type="text" class="form-control" placeholder="Category Name" name="categoryname" [(ngModel)]="category.name">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-center">
+              <button class="btn btn-primary" (click)="saveCategory()">บันทึก</button>
+              <button class="btn btn-danger" #dissmissBtn data-dismiss="modal" (click)="cancelCategory(cateModal)">ยกเลิก</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------------- ADD OR EDIT CATEGORY ---------------------- -->
+
+  <!-- ---------------------- ADD OR EDIT PRODUCT ---------------------- -->
+  <div class="modal fade" #modalproduct tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left"> {{CE_action_product}}สินค้า</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center" *ngIf="CE_action_product == 'เพิ่ม'">
+              <div class="col-md-2"></div>
+              <div *ngIf="productImgPreSaves.length < 3" class="col-md-2" style="background-color: #c0c0c0;height: 128px; cursor:pointer"
+                (click)="selectProductImg()">
+                <i class="material-icons" style="margin-top: 4rem">add_a_photo</i>
+                <input #uploadImgProduct type="file" accept="image/x-png,image/jpeg" (change)="onProductImgChange($event)">
+              </div>
+              <div class="col-md-2" *ngFor="let item of productImgPreSaves">
+                <span class="bin-3" *ngIf="isDelete">
+                  <i class="material-icons add-dropShadow" style="font-size: 26px" (click)="deleteImgProduct(item.id)">delete</i>
+                </span>
+                <img [src]="item.base64" alt="" width="128px" height="128px">
+              </div>
+              <div class="col-md-2"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-left">
+              <div class="form-group">
+                <h5>ชื่อสินค้า</h5>
+                <input type="text" class="form-control" placeholder="Product name" name="productname" [(ngModel)]="productModel.name">
+              </div>
+
+              <div class="form-group">
+                <h5>ราคา</h5>
+                <input type="number" class="form-control" placeholder="Product price" name="productprice" [(ngModel)]="productModel.price">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-center">
+
+              <button class="btn btn-primary" (click)="saveProduct()">บันทึก</button>
+              <button class="btn btn-danger" #dissmissBtn data-dismiss="modalproduct" (click)="cancelCategory(cateModal)">ยกเลิก</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ---------------------- ADD OR EDIT PRODUCT ---------------------- -->
+
+
+</div>

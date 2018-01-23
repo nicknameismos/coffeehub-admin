@@ -1,0 +1,12 @@
+.loading-bg {
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    width: 100%;
+    z-index: 2000;
+    position: absolute;
+}
+
+.gif-po {
+    margin-left: 50%;
+    margin-top: 18%;
+}

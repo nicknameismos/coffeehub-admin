@@ -1,0 +1,10 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <form class="form-signin">
+      <h2 style="text-align: center;">กรุณาเข้าสู่ระบบ</h2>
+      <input type="email" class="form-control" placeholder="อีเมล" autofocus="" name="username" [(ngModel)]="credentials.username">
+      <input type="password"  class="form-control" placeholder="รหัสผ่าน" name="password" [(ngModel)]="credentials.password">
+      <button class="btn btn-lg btn-block" style="background-color: #ed3840;" (click)="login()">เข้าสู่ระบบ</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.caret {
+    margin-top: 13px;
+    position: absolute;
+    right: 18px;
+}
+
+.bg2 {
+    background-color: #31383F !important;
+}
+
+.logo-img img {
+    width: 68px !important;
+    top: 12px !important;
+}
+
+.mgt-20 {
+    margin-left: 20px;
+}
+
+.nav p {
+    color: #ed3840 !important;
+}
+
+.nav i {
+    color: #ed3840;
+}
+
+.logo {
+    background: #2b2b2b;
+}

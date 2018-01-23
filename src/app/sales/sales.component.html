@@ -1,0 +1,101 @@
+<div class="main-content">
+
+  <div class="container-fluid">
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header card-chart" data-background-color="green">
+            <div class="ct-chart" id="dailySalesChart"></div>
+          </div>
+          <div class="card-content">
+            <h4 class="title">สรุปยอดขายรวม</h4>
+            <p class="category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 45%  </span> เพิ่มขึ้นจากเมื่อวาน</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header card-chart" data-background-color="red">
+            <div class="ct-chart" id="completedTasksChart"></div>
+          </div>
+          <div class="card-content">
+            <h4 class="title">กำไรจากการขาย</h4>
+            <p class="category"><span class="text-success"><i class="fa fa-long-arrow-up"></i> 10%  </span> เพิ่มขึ้นจากเมื่อวาน</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header dropdown" data-background-color="red">
+            <h4 class="title">ยอดขาย</h4>
+            <!-- <p class="category">Here is a subtitle for this table</p> -->
+          </div>
+
+          <div class="card-content table-responsive">
+            <table class="table">
+              <thead class="text-danger">
+                <tr>
+                  <th>#</th>
+                  <th>สินค้า</th>
+                  <th class="text-center">จำนวน</th>
+                  <th class="text-center">ยอดขาย (บาท)</th>
+                  <th class="text-center">ยอดขาย (%)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>ชุดเดรสสั้น คอกลม แขนบาน ลายขวาง ทรงใส่สบาย (สีดำ)</td>
+                  <td class="text-center">2</td>
+                  <td class="text-center">{{2700 | number}}</td>
+                  <td class="text-danger text-center">10</td>
+                </tr>
+
+                <tr>
+                  <td>2</td>
+                  <td>KK เดรสสั้น แขน 3 ส่วน ลายริ้ว (สีดำ) รุ่น 8801</td>
+                  <td class="text-center">8</td>
+                  <td class="text-center">{{2700 | number}}</td>
+                  <td class="text-danger text-center">10</td>
+                </tr>
+
+                <tr>
+                  <td>3</td>
+                  <td>KK ชุดเดรสสั้นน่ารัก สีดำตัดขาว รุ่น LW100</td>
+                  <td class="text-center">7</td>
+                  <td class="text-center">{{2700 | number}}</td>
+                  <td class="text-danger text-center">10</td>
+                </tr>
+
+                <tr>
+                  <td>4</td>
+                  <td>Korea ชุดเดรสแฟชั่น ทรงหรูน่ารัก แขนระบาย(สีดำ) รุ่น 5309</td>
+                  <td class="text-center">5</td>
+                  <td class="text-center">{{2700 | number}}</td>
+                  <td class="text-danger text-center">10</td>
+                </tr>
+
+                <tr>
+                  <td>5</td>
+                  <td>Charming ชุดเดรสดำชายระบาย ผ้ายืดเนื้อดีไม่ต้องรีด รุ่น D108</td>
+                  <td class="text-center">30</td>
+                  <td class="text-center">{{2700 | number}}</td>
+                  <td class="text-danger text-center">10</td>
+                </tr>
+
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

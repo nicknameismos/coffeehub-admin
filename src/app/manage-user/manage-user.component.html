@@ -1,0 +1,434 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div>
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+              <a href="#customer" aria-controls="customer" role="tab" data-toggle="tab" (click)="activeTab('customer')">ลูกค้า</a>
+            </li>
+            <li role="presentation">
+              <a href="#shopowner" aria-controls="shopowner" role="tab" data-toggle="tab" (click)="activeTab('shopowner')">เจ้าของร้าน</a>
+            </li>
+            <li role="presentation">
+              <a href="#admin" aria-controls="admin" role="tab" data-toggle="tab" (click)="activeTab('admin')">แอดมิน</a>
+            </li>
+            <li role="presentation">
+              <a href="#biker" aria-controls="biker" role="tab" data-toggle="tab" (click)="activeTab('biker')">ไบค์เกอร์</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-8 col-sm-8 col-xs-8" style="margin-top: 10px">
+          <div class="sb">
+            <span class="inner-sb">
+              <span class="txb">
+                ค้นหา
+              </span>
+            </span>
+            <span>
+              <input type="text" class="form-control tb" [(ngModel)]="searchKeyword" (keyup.enter)="searchShop()">
+            </span>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
+          <button class="btn addBTN" type="button" data-toggle="modal" data-target="#modalEditUser" (click)="addUser()">
+            <i class="material-icons">add</i> เพิ่มผู้ใช้งาน
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+
+        <!-- Tab Customer -->
+        <div role="tabpanel" class="tab-pane active" id="customer">
+          <div class="tab-content">
+
+            <div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-content table-responsive">
+                      <table class="table table-hover">
+                        <thead class="text-danger">
+                          <tr>
+                            <th class="text-center" index-col-size>#</th>
+                            <th class="text-center">ชื่อที่แสดง</th>
+                            <th class="text-center">ชื่อ - นามสกุล</th>
+                            <th class="text-center">เบอร์โทร</th>
+                            <th class="text-center">อีเมล์</th>
+                            <th class="text-center">สถานะ</th>
+                            <th class="text-center">Action</th>
+                            <th class="text-center"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngIf="listCust.length <=0">
+                            <td colspan="8" class="text-center">
+                              ยังไม่มีข้อมูลผู้ใช้ในระบบค่ะ
+                            </td>
+
+                          </tr>
+                          <tr *ngFor="let item of listCust[0]; let i = index ">
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{i + pageSelect + 1}}</td>
+                            <td class="name-ovf" style="text-align: center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.displayName}}</td>
+                            <td class="name-ovf" style="text-align: center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.firstName}} {{item.lastName}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.mobile ? item.mobile: '-'}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.email}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">Active</td>
+                            <td style="text-align: center">
+                              <ui-switch size="small" color="green" (change)="activeChange($event,item)"></ui-switch>
+                              <!-- <button class="btn btn-danger btn-simple btn-xs btn-border" style="margin-top: -8px" type="button" (click)="banUser(item)">
+                                Ban User
+                              </button> -->
+                              <!-- <i class="material-icons del-color" style="color:red">delete</i> -->
+                            </td>
+                            <td style="text-align: center">
+                              <button class="btn btn-danger btn-simple btn-xs btn-border" type="button" (click)="banUser(item)">
+                                Ban User
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- Tab Customer -->
+
+        <!-- Tab ShopOwner -->
+        <div role="tabpanel" class="tab-pane" id="shopowner">
+          <div class="tab-content">
+            <div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-content table-responsive">
+                      <table class="table table-hover">
+                        <thead class="text-danger">
+                          <tr>
+                            <th class="text-center" index-col-size>#</th>
+                            <th class="text-center" displayname-col-size>ชื่อที่แสดง</th>
+                            <th class="text-center" name-col-size>ชื่อ - นามสกุล</th>
+                            <th class="text-center tel-col-size">เบอร์โทร</th>
+                            <th class="text-center" email-col-size>อีเมล์</th>
+                            <th class="text-center col-md-1">สถานะ</th>
+
+
+                            <th class="text-center col-md-1 col-lg-1 action-col-size">
+                              Action
+                              <!-- <span style="margin-right:-50px"></span> -->
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngIf="listShopOwner.length <=0">
+                            <!-- <tr> -->
+                            <td colspan="8" class="text-center">
+                              ยังไม่มีข้อมูลผู้ใช้ในระบบค่ะ
+                            </td>
+
+                          </tr>
+                          <tr *ngFor="let item of listShopOwner[0]; let i = index ">
+                            <td class="text-center " data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{i + pageSelect + 1}}</td>
+                            <td class="text-center name-ovf" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.displayName}}</td>
+                            <td class="text-center name-ovf" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.firstName}} {{item.lastName}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.mobile ? item.mobile: '-'}}</td>
+                            <td class="text-center email-ovf" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.email}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.gender ? item.gender: '-'}}</td>
+
+
+                            <td class="text-center">
+                              <span>
+                                <ui-switch size="small" color="red" (change)="activeChange($event,item)"></ui-switch>
+                              </span>
+
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+
+                      <!-- <div class="pc">
+                              <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                  <li [class]="curentPage[item]" *ngFor="let item of shopsL.pagings">
+                                    <a (click)="pageing(item)">{{item}}</a>
+                                  </li>
+                                </ul>
+                              </nav>
+                            </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Tab ShopOwner -->
+
+        <!-- Tab Admin -->
+        <div role="tabpanel" class="tab-pane" id="admin">
+          <div class="tab-content">
+            <div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-content table-responsive">
+                      <table class="table table-hover">
+                        <thead class="text-danger">
+                          <tr>
+                            <th class="text-center" index-col-size>#</th>
+                            <th class="text-center" displayname-col-size>ชื่อที่แสดง</th>
+                            <th class="text-center" name-col-size>ชื่อ - นามสกุล</th>
+                            <th class="text-center col-md-2 tel-col-size">เบอร์โทร</th>
+                            <th class="text-center" email-col-size>อีเมล์</th>
+                            <th class="text-center col-md-1">สถานะ</th>
+
+
+                            <th class="text-center col-md-1 col-lg-1 action-col-size">
+                              Action
+                              <!-- <span style="margin-right:-50px"></span> -->
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngIf="listAdmin.length <=0">
+                            <!-- <tr> -->
+                            <td colspan="8" class="text-center">
+                              ยังไม่มีข้อมูลผู้ใช้ในระบบค่ะ
+                            </td>
+
+                          </tr>
+                          <tr *ngFor="let item of listAdmin[0]; let i = index ">
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{i + pageSelect + 1}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.displayName}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.firstName}} {{item.lastName}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.mobile ? item.mobile: '-'}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.email}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.gender ? item.gender: '-'}}</td>
+
+                            <td class="text-center">
+                              <span>
+                                <ui-switch size="small" color="red" (change)="activeChange($event,item)"></ui-switch>
+                              </span>
+
+
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+
+                      <!-- <div class="pc">
+                                  <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                      <li [class]="curentPage[item]" *ngFor="let item of shopsL.pagings">
+                                        <a (click)="pageing(item)">{{item}}</a>
+                                      </li>
+                                    </ul>
+                                  </nav>
+                                </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Tab Admin -->
+
+        <!-- Tab Biker -->
+        <div role="tabpanel" class="tab-pane" id="biker">
+          <div class="tab-content">
+            <div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-content table-responsive">
+                      <table class="table table-hover">
+                        <thead class="text-danger">
+                          <tr>
+                            <th class="text-center" index-col-size>#</th>
+                            <th class="text-center" displayname-col-size>ชื่อที่แสดง</th>
+                            <th class="text-center" name-col-size>ชื่อ - นามสกุล</th>
+                            <th class="text-center col-md-2 tel-col-size">เบอร์โทร</th>
+                            <th class="text-center" email-col-size>อีเมล์</th>
+                            <th class="text-center col-md-1">สถานะ</th>
+
+                            <th class="text-center col-md-1 col-lg-1 action-col-size">
+                              Action
+                              <!-- <span style="margin-right:-50px"></span> -->
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngIf="listBiker.length <=0">
+                            <!-- <tr> -->
+                            <td colspan="8" class="text-center">
+                              ยังไม่มีข้อมูลผู้ใช้ในระบบค่ะ
+                            </td>
+
+                          </tr>
+                          <tr *ngFor="let item of listBiker[0]; let i = index ">
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{i + pageSelect + 1}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.displayName}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.firstName}} {{item.lastName}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.mobile ? item.mobile: '-'}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.email}}</td>
+                            <td class="text-center" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">{{item.gender ? item.gender: '-'}}</td>
+
+                            <td class="text-center">
+                              <span>
+                                <i class="material-icons edit-btn" data-toggle="modal" data-target="#modalEditUser" (click)="editUser(item)">border_color</i>
+
+                                <ui-switch size="small" color="red" (change)="activeChange($event,item)"></ui-switch>
+                              </span>
+
+
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+
+                      <!-- <div class="pc">
+                                  <nav aria-label="Page navigation">
+                                    <ul class="pagination">
+                                      <li [class]="curentPage[item]" *ngFor="let item of shopsL.pagings">
+                                        <a (click)="pageing(item)">{{item}}</a>
+                                      </li>
+                                    </ul>
+                                  </nav>
+                                </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Tab Admin -->
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL EDIT USER -->
+<div class="modal fade" id="modalEditUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <span modal-icon-1>
+            <i class="material-icons edit-color">people</i>
+          </span>
+          <span modal-text-1>
+            <h4 style="font-family: 'Kanit', sans-serif;" class="modal-title" id="exampleModalLabel">{{action}}
+            </h4>
+          </span>
+          <span class="dl" *ngIf="action != 'เพิ่มบัญชีผู้ใช้'">
+            <i class="material-icons edit-color" (click)="deleteUser()">delete</i>
+          </span>
+        </div>
+
+      </div>
+     
+        <div class="modal-body">
+          
+          <div class="row bd" *ngIf="action == 'เพิ่มบัญชีผู้ใช้'">
+            <div class="col-md-12">
+              <div class="form-group form-black is-empty">
+                Username
+                <span style="color:red"> *</span>:
+                <input class="form-control" type="text" [(ngModel)]="editingUserData.username">
+              </div>
+            </div>
+          </div>
+          <div class="row bd" *ngIf="action == 'เพิ่มบัญชีผู้ใช้'">
+            <div class="col-md-12">
+              <div class="form-group form-black is-empty">
+                Password
+                <span style="color:red"> *</span>:
+                <input class="form-control" type="password" [(ngModel)]="editingUserData.password">
+              </div>
+            </div>
+          </div>
+
+          <div class="row bd" *ngIf="action == 'เพิ่มบัญชีผู้ใช้'">
+            <div class="col-md-12">
+              <div class="form-group form-black is-empty">
+                Email
+                <span style="color:red"> *</span>:
+                <input class="form-control" type="email"  [(ngModel)]="editingUserData.email" #email="ngModel" >
+        
+              </div>
+            </div>
+          </div>
+
+          <div class="row bd">
+            <div class="col-md-12">
+              <div class="form-group form-black is-empty">
+                ชื่อ
+                <span style="color:red"> *</span>:
+                <input class="form-control" type="text" [(ngModel)]="editingUserData.firstName">
+              </div>
+            </div>
+          </div>
+          <div class="row bd">
+            <div class="col-md-12">
+              <div class="form-group form-black is-empty">
+                นามสกุล
+                <span style="color:red"> *</span>:
+                <!-- <label class="control-label">คำค้นหา (เช่น coffee)</label> -->
+                <input class="form-control" type="text" [(ngModel)]="editingUserData.lastName">
+              </div>
+            </div>
+          </div>
+          <div class="row bd">
+            <div class="col-md-12">
+              <div class="form-group form-black is-empty">
+                เบอร์โทร
+                <span style="color:red"> *</span>:
+                <!-- <label class="control-label">คำค้นหา (เช่น coffee)</label> -->
+                <input class="form-control" type="text" [(ngModel)]="editingUserData.mobile">
+              </div>
+            </div>
+            <!-- <div class="col-md-2 mt-10">
+            <div class="form-group form-black is-empty">
+              <button class="btn btn-info" (click)="search()">ค้นหา</button>
+            </div>
+          </div> -->
+          </div>
+          <div class="row bd" *ngIf="action != 'เพิ่มบัญชีผู้ใช้'">
+            <div class="col-md-12">
+
+              <div class="form-group">
+                <label for="roles">ระดับผู้ใช้:</label>
+                <select class="form-control " id="roles" [(ngModel)]="editingUserData.roles">
+                  <option value="admin">Admin</option>
+                  <option value="user">Customer</option>
+                  <option value="shop">Shop Owner</option>
+                  <option value="biker">Biker</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" #dissmissBtn2 class="btn btn-danger" data-dismiss="modal">ปิด</button>
+            <button type="button" class="btn btn-success " (click)="saveUser()">บันทึกข้อมูล</button>
+          </div>
+        </div>
+
+    </div>
+  </div>
+  <!-- MODAL EDIT USER -->

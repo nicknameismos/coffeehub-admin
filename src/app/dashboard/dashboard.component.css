@@ -1,0 +1,9 @@
+.card-stats .card-header {
+    float: none !important;
+}
+
+.right {
+    position: absolute;
+    right: 40px;
+    cursor: pointer;
+}

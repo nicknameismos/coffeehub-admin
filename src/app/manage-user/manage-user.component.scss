@@ -1,0 +1,169 @@
+.nav-tabs {
+    background: transparent;
+}
+
+.dl {
+    right: 10px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.nav-tabs>li>a {
+    color: #000 !important;
+    font-size: 1.2em;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+    border-bottom: 3px solid rgb(14, 156, 14) !important;
+}
+
+.tel-col-size {
+    width: 7.8rem;
+}
+
+.input-col-size {
+    width: 11rem;
+}
+
+[name-col-size] {
+    width: 17rem;
+}
+
+[displayname-col-size] {
+    width: 13rem;
+}
+
+[index-col-size] {
+    width: 2rem;
+}
+
+[email-col-size] {
+    width: 9rem;
+}
+
+.edit-color {
+    color: #f75251;
+    font-size: 3.5rem;
+}
+
+.edit-btn {
+    font-size: 2.5rem;
+    color: orange;
+}
+
+.action-col-size {
+    width: 14rem;
+    text-align: center;
+    vertical-align: text-top;
+}
+
+.close {
+    font-size: 4rem;
+}
+
+.form-control[disabled],
+fieldset[disabled] .form-control,
+.form-group .form-control[disabled],
+fieldset[disabled] .form-group .form-control {
+    background-image: none;
+    border-bottom: 1px dotted #565656;
+}
+
+.dropdown-menu {
+    min-width: 90px;
+}
+
+[modal-text-1] {
+    position: absolute;
+    margin-left: 4.5rem;
+    top: 3rem;
+}
+
+[modal-icon-1] {
+    position: absolute;
+}
+
+.switch {
+    background-color: #4caf50 !important;
+}
+
+.action-col-size {
+    width: 4rem;
+    text-align: center;
+    vertical-align: text-top;
+}
+
+.btn-border {
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 10rem;
+    width: 8rem;
+}
+
+.btn-color {
+    border-radius: 10rem;
+    background-color: rgb(255, 0, 0);
+    width: 8rem;
+}
+
+.sb {
+    height: 48px;
+    border: 2px solid;
+    border-radius: 40px;
+}
+
+.inner-sb {
+    position: absolute;
+    margin-left: 50px;
+    border-right: 2px solid;
+    padding-right: 4px;
+    height: 46px;
+    margin-top: -2px;
+}
+
+.txb {
+    margin-top: 14px;
+    position: absolute;
+    margin-left: -36px;
+    font-weight: bold;
+}
+
+.tb {
+    position: absolute;
+    margin-top: -22px;
+    width: 220px;
+    margin-left: 68px;
+}
+
+.addBTN {
+    background-color: #ffffff00;
+    color: rgb(34, 143, 34);
+    border-color: rgb(34, 143, 34);
+    border-radius: 4rem;
+    border: 3px solid;
+    font-size: 1.5rem;
+}
+
+.btn,
+.btn:hover,
+.btn:focus .open>.btn.dropdown-toggle:hover,
+.btn.btn-default,
+.btn.btn-default:hover {
+    // background-color: #ffffff00 ;
+    // border-color: rgb(34, 143, 34);
+    // color: rgb(34, 143, 34) !important;
+}
+.email-ovf{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 30rem;
+}
+.name-ovf{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 26rem;
+}

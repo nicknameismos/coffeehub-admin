@@ -1,0 +1,279 @@
+<div class="main-content">
+
+  <div class="container-fluid">
+
+
+    <!-- //////Apple/// -->
+    <div class="row">
+      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" *ngFor="let tab of shopsL.name; let i = index" class="{{ selectedTab === i ? 'active':''}}">
+            <a href="#tab{{i}}" role="tab" data-toggle="tab" (click)="selectTab(tab)">{{tab}}</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- <ul class="nav nav-tabs">
+          <li *ngFor="let tab of shopsL.name; let i = index" class="{{ selectedTab === i ? 'active':''}}">
+            <a data-toggle="tab" href="#tab{{i}}" (click)="selectTab(tab)">
+              <h4 style="font-family: 'Kanit', sans-serif;">{{tab}}</h4>
+            </a>
+          </li>
+        </ul> -->
+
+
+
+      <div class="col-lg-4 col-md-8 col-sm-8 col-xs-8" style="margin-top: 10px">
+        <div class="sb">
+          <span class="inner-sb">
+            <span class="txb">
+              ค้นหา
+            </span>
+          </span>
+
+          <span>
+            <input type="text" class="form-control tb" [(ngModel)]="searchKeyword" (keyup.enter)="searchShop()">
+          </span>
+        </div>
+        <!-- <div class="input-group search-box">
+          <input type="text" class="form-control" placeholder="ค้นหา..." [(ngModel)]="searchKeyword">
+          <span class="input-group-btn">
+              <button class="btn btn-default" type="button" (click)="searchShop()">
+                <i class="material-icons">search</i>
+              </button>
+            </span>
+        </div> -->
+      </div>
+
+
+
+      <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
+        <div class="dropdown pull-right">
+          <button class="btn  pull-right dropdown-toggle addBTN" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="true">
+            <i class="material-icons">add</i> เพิ่มร้านค้า
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li (click)="createShop()">
+              <a>เพิ่มข้อมูลเอง</a>
+            </li>
+            <li (click)="getShopFromGoogle()">
+              <a data-toggle="modal" data-target="#modalGoogle">นำเข้าจาก Google</a>
+            </li>
+            <li (click)="getShopFromFacebook()">
+              <a data-toggle="modal" data-target="#modalGoogle">นำเข้าจาก Facebook</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="tab-content">
+      <div id="tab{{k}}" *ngFor="let item of shopsL.name; let k = index" class="tab-pane fade in {{ k === 0 ? 'active':''}}">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-content table-responsive">
+                <table class="table table-hover">
+                  <thead class="text-danger">
+                    <tr>
+                      <th index-col-size>#</th>
+                      <th name-col-size>ชื่อร้านค้า</th>
+                      <th class="text-center col-md-2 tel-col-size">เบอร์โทร</th>
+                      <th adr-column-width>ที่อยู่</th>
+                      <th class="text-center col-md-2 input-col-size">ช่องทางนำเข้า</th>
+                      <th class="text-center col-md-1">Official</th>
+                      <th class="text-center col-md-1 col-lg-1 action-col-size">
+                        Action
+                        <!-- <span style="margin-right:-50px"></span> -->
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="shopsL.items.length <=0">
+                      <td colspan="7" class="text-center">
+                        ยังไม่มีข้อมูลร้านค้าในระบบค่ะ
+                      </td>
+
+                    </tr>
+                    <tr *ngFor="let item of shopsL.items; let i = index ">
+                      <td (click)="editShop(item)">{{i + pageSelect + 1}}</td>
+                      <td (click)="editShop(item)">{{item.name}}</td>
+                      <td class="text-center" (click)="editShop(item)">{{item.tel ? item.tel: '-'}}</td>
+                      <td *ngIf="!item.address" (click)="editShop(item)">ไม่ปรากฎที่อยู่ร้าน</td>
+                      <td *ngIf="item.address" (click)="editShop(item)"  class="adr-ovf">{{item.address.address ? item.address.address: '-'}}</td>
+                      <td class="text-center" (click)="editShop(item)">{{item.importform}}
+                        <p subText>by {{item.user.firstName}}</p>
+                      </td>
+                      <td class="text-center ">
+
+                        <button class="btn btn-success btn-simple btn-xs btn-border" type="button" *ngIf="!item.issendmail && item.email" (click)="isSendMail(item)">
+                          SEND USER
+                        </button>
+                        <p *ngIf="item.issendmail">Joined</p>
+                      </td>
+                      <td class="text-center">
+                        <ui-switch [(ngModel)]="item.isactiveshop" (change)="activeChange($event,item)"></ui-switch>
+
+
+                        <div class="dropdown pull-right">
+                          <button class="btn btn-simple btn-xs pull-right dropdown-toggle " type="button" id="dropdownMenu2" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="true">
+                            <i class="material-icons toggle-color">more_horiz</i>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <span (click)="editShop(item)">
+                              <i class="material-icons edit-color">border_color</i>
+                            </span>
+                            <span (click)="deleteShop(item._id)">
+                              <i class="material-icons del-color">delete</i>
+                            </span>
+
+                          </ul>
+                        </div>
+
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+
+                <div class="pc">
+                  <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                      <li [class]="curentPage[item]" *ngFor="let item of shopsL.pagings">
+                        <a (click)="pageing(item)">{{item}}</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!-- ////? -->
+
+
+  </div>
+</div>
+
+<!-- /////////////////////////////////MODAL Google and Facebook import shop///////////////////////// -->
+
+<div class="modal fade" id="modalGoogle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 style="font-family: 'Kanit', sans-serif;" class="modal-title" id="exampleModalLabel">นำเข้าข้อมูลจาก {{importForm}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row bd">
+          <div class="col-md-4">
+            <div class="form-group form-black is-empty">
+              ละแวก (เช่น สยามพารากอน)
+              <!-- <label class="control-label">ละแวก (เช่น สยามพารากอน)</label> -->
+              <input class="form-control" type="text" [(ngModel)]="local">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group form-black is-empty">
+
+              ค้นหาประเภทร้านค้า
+              <select class="form-control" [(ngModel)]="shopType">
+                <option *ngIf="importForm == 'Google'" value="">ทั้งหมด</option>
+                <option *ngIf="importForm == 'Google'" value="restaurant">restaurant</option>
+                <option *ngIf="importForm == 'Google'" value="store">store</option>
+                <option *ngIf="importForm == 'Google'" value="cafe">cafe</option>
+                <option *ngIf="importForm == 'Facebook'" value="place">place</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group form-black is-empty">
+              คำค้นหา (เช่น coffee)
+              <!-- <label class="control-label">คำค้นหา (เช่น coffee)</label> -->
+              <input class="form-control" type="text" [(ngModel)]="keyword">
+            </div>
+          </div>
+          <div class="col-md-2 mt-10">
+            <div class="form-group form-black is-empty">
+              <button class="btn btn-info" (click)="search()">ค้นหา</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3" *ngFor="let item of shopList" (click)="selectShops(item.id,item.ishave)">
+            <div class="hv" *ngIf="loadingIdx[item.id]">
+              <img src="../../assets/img/301.svg" alt="Loading..." class="mgt-148">
+            </div>
+            <div class="card" style="width: 20rem">
+              <span class="lo" *ngIf="selectedShop[item.id]">
+                <img class="ic" src="https://i0.wp.com/triagelogic.com/wp-content/uploads/2016/02/successful-registration.png?resize=300%2C300&ssl=1">
+              </span>
+              <span class="lo" *ngIf="item.ishave">
+                <span class="b-bage">มีอยู่ในระบบ</span>
+              </span>
+              <img class="card-img-top" [src]="item.img" alt="Card image">
+              <div class="card-block pd-4">
+                <h4 class="card-title ellipsis">
+                  <b>{{item.name}}</b>
+                </h4>
+                <p class="card-text ellipsis">{{item.vicinity}}</p>
+                <p class="card-text ellipsis">เบอร์โทรศัพท์ {{item.phone ? item.phone : '-'}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveShops()">บันทึกข้อมูล</button>
+        <button type="button" #dissmissBtn class="btn btn-default" data-dismiss="modal">ปิด</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- /////////////////////////////////MODAL create and edit shop///////////////////////// -->
+
+<div class="modal fade" id="modalCEshop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 style="font-family: 'Kanit', sans-serif;" class="modal-title" id="exampleModalLabel2">{{action}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <img class="im" src="{{shopForEdit.coverimage}}" alt="image">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-12 lo2"></div>
+            </div>
+            <div class="row">
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="saveShops()">บันทึกข้อมูล</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div #map></div>

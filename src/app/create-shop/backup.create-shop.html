@@ -1,0 +1,615 @@
+<div class="main-content">
+  <div class="row text-center" *ngIf="shop._id">
+
+    <div class="col-sm-2 col-md-2 col-lg-2 "></div>
+    <div class="col-sm-8 col-md-8 col-lg-8 ">
+      <div class="card">
+        <!-- <div class="card-header cw text-left">
+          รูปภาพโปรโมทร้าน
+        </div> -->
+        <div class="card-block text-center padding-all">
+          <ngx-gallery *ngIf="shop.promoteimage && shop.promoteimage.length > 0" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+          <h4 *ngIf="!shop.promoteimage || shop.promoteimage.length == 0" style="font-family: 'Kanit', sans-serif;">ร้านนี้ยังไม่มีรูปภาพโปรโมทร้านค่ะ</h4>
+        </div>
+        <!-- <h4 *ngIf="!shop.promoteimage" style="font-family: 'Kanit', sans-serif;">ร้านนี้ยังไม่มีรูปภาพโปรโมทร้านค่ะ</h4> -->
+      </div>
+      <button class="btn" type="button" (click)="uploadPromoteImage()">
+        <i class="material-icons">add_a_photo</i> เพิ่มรูปโปรโมทร้าน
+      </button>
+      <input type="file" #promoteimgInput accept="image/*" [(ngModel)]="promoteImg" (change)="onPromoteImgChange($event)" style="visibility: hidden;"
+      />
+    </div>
+    <div class=" col-sm-2 col-md-2 col-lg-2 "></div>
+  </div>
+
+  <!-- <div class="row">
+    <div class="col-xl-8 col-lg-8 col-xl-offset-2 col-lg-offset-2">
+      <div class="card">
+        <div class="card-block">
+          <div class="row" *ngIf="shop.coverimage">
+            <div class="col-xs-12 col-md-12 col-lg-12">
+              <img class="card-img-top" [src]="shop.coverimage ? shop.coverimage : 'http://res.cloudinary.com/ha7s6qhcg/image/upload/v1512718072/uploadcover_wmvyr4.jpg'"
+                alt="Card image cap">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="card">
+        <div class="card-header cw">
+          ข้อมูลร้านค้า
+        </div>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-xs-2">
+              <div class="btn-group-vertical" role="group" aria-label="...">
+                <button type="button" class="btn " (click)="selectTab(0)">ข้อมูลเกี่ยวกับร้านค้า</button>
+                <button type="button" class="btn " (click)="selectTab(1)">ข้อมูลติดต่อร้านค้า</button>
+                <button type="button" class="btn " (click)="selectTab(2)">วันเวลาเปิดปิดร้าน</button>
+                <button type="button" class="btn " (click)="selectTab(3)">ที่อยู่ร้าน</button>
+              </div>
+            </div>
+            <div class="col-xs-10">
+
+              <!-- SHOP INFO -->
+              <div class="card-block" *ngIf="selectTabs == 0">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="s-cont">
+                      <p style="color:#c0c0c0">เลือกประเภทร้านค้า</p>
+                      <p *ngFor="let item of categoryShopList" (click)="selectCate(item._id)">{{item.name}}
+                        <img *ngIf="checkeds[item._id]" class="check_po check_icon" src="https://image.flaticon.com/icons/svg/189/189677.svg" alt="icon">
+                      </p>
+                    </div>
+                    <!-- <select name="cateshop" class="form-control" [(ngModel)]="shop.categories" multiple>
+                          <option value="" disabled>เลือกประเภทร้านค้า</option>
+                          <option *ngFor="let item of categoryShopList" [value]="item._id">{{item.name}}</option>
+                        </select>
+                        <div class="b-red">* กรณีเลือกหลายประเภทให้กด Ctrl ค้าง</div> -->
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="ชื่อร้าน" name="shopName" [(ngModel)]="shop.name">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="ชื่อร้าน (ภาษาอังกฤษ)" name="shopNameEn" [(ngModel)]="shop.name_eng">
+                    </div>
+
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="รายละเอียดร้าน" name="detail" [(ngModel)]="shop.detail">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <!-- SHOP INFO -->
+
+
+              <!-- SHOP CONTACT INFO -->
+              <div class="card-block" *ngIf="selectTabs == 1">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="email" class="form-control" placeholder="อีเมล" naem="email" [(ngModel)]="shop.email">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="หมายเลขโทรศัพท์" naem="tel" [(ngModel)]="shop.tel">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Facebook" naem="Facebook" [(ngModel)]="shop.facebook">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Line" naem="Line" [(ngModel)]="shop.line">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- SHOP CONTACT INFO -->
+
+
+              <!-- SHOP TIME - CLOSE -->
+
+              <div class="card-block" *ngIf="selectTabs == 2">
+                <div class="row">
+                  <div class="col-md-3" (click)="openTime()">
+                    <img class="img" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511499758/pp_clfpol.jpg" alt="image">
+                  </div>
+                  <div class="col-md-2" *ngFor="let item of timeList;let i = index">
+                    <div class="card card-time-size" style="margin: 0px 0;">
+                      <span class="bin" (click)="deleteTime(i)">
+                        <i class="material-icons">delete</i>
+                      </span>
+                      <div class="card-block text-center">
+                        <h4 class="card-title" style="text-align: center;">{{item.description}}</h4>
+                        <p class="card-text">เวลาเปิด {{item.timestart}} น.</p>
+                        <p class="card-text">เวลาปิด {{item.timeend}} น.</p>
+                        <div class="time-elaspe">
+                          <span *ngFor="let item2 of item.days">{{item2}} </span>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="showeditTime">
+                  <div class="col-xs-12">
+                    <div class="card">
+                      <div class="card-block">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="รายละเอียด" name="timeDetail" [(ngModel)]="times.description">
+                        </div>
+                        <div class="form-group">
+                          <input type="time" class="form-control" placeholder="เวลาเปิด" name="start" [(ngModel)]="times.timestart">
+                        </div>
+                        <div class="form-group">
+                          <input type="time" class="form-control" placeholder="เวลาปิด" name="end" [(ngModel)]="times.timeend">
+                        </div>
+
+                        <ul class="list-group list-group-flush">
+
+                          <li class="list-group-item" (click)="selectDay(0)">วันอาทิตย์
+                            <span class="check" *ngIf="selectDate[0]">
+                              <i class="material-icons">done</i>
+                            </span>
+                          </li>
+                          <li class="list-group-item" (click)="selectDay(1)">วันจันทร์
+                            <span class="check" *ngIf="selectDate[1]">
+                              <i class="material-icons">done</i>
+                            </span>
+                          </li>
+                          <li class="list-group-item" (click)="selectDay(2)">วันอังคาร
+                            <span class="check" *ngIf="selectDate[2]">
+                              <i class="material-icons">done</i>
+                            </span>
+                          </li>
+                          <li class="list-group-item" (click)="selectDay(3)">วันพุธ
+                            <span class="check" *ngIf="selectDate[3]">
+                              <i class="material-icons">done</i>
+                            </span>
+                          </li>
+                          <li class="list-group-item" (click)="selectDay(4)">วันพฤหัสบดี
+                            <span class="check" *ngIf="selectDate[4]">
+                              <i class="material-icons">done</i>
+                            </span>
+                          </li>
+                          <li class="list-group-item" (click)="selectDay(5)">วันศุกร์
+                            <span class="check" *ngIf="selectDate[5]">
+                              <i class="material-icons">done</i>
+                            </span>
+                          </li>
+                          <li class="list-group-item" (click)="selectDay(6)">วันเสาร์
+                            <span class="check" *ngIf="selectDate[6]">
+                              <i class="material-icons">done</i>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ct">
+                    <button class="btn btn-primary" (click)="saveTime()">บันทึก</button>
+                    <button class="btn btn-danger" (click)="cancelTime()">ยกเลิก</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- SHOP TIME - CLOSE -->
+
+              <!-- SHOP ADDRESS -->
+
+              <div class="card-block" *ngIf="selectTabs == 3">
+                <div class="form-group">
+                  <textarea rows="1" class="form-control ct" placeholder="ที่อยู่" name="addr" [(ngModel)]="address"></textarea>
+                  <!-- <input type="text" class="form-control" placeholder="ที่อยู่" [(ngModel)]="address"> -->
+                </div>
+                <p class="pin" (click)="openSelectMap()">
+                  <i class="material-icons">room</i>
+                </p>
+              </div>
+              <div *ngIf="showeMap">
+                <input #pacinput id="pac-input" class="controls m2" type="text" placeholder="ค้นหาสถานที่">
+                <div #map class="map"></div>
+                <div class="ct">
+                  <button class="btn btn-info" (click)="saveMap()">ยืนยัน</button>
+                  <!-- <button class="btn btn-danger" (click)="cancelMap()">ยกเลิก</button> -->
+                </div>
+              </div>
+
+              <!-- SHOP ADDRESS -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="row">
+    <div class="col-xl-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-header cw">
+          ข้อมูลร้านค้า
+        </div>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="s-cont">
+                <p style="color:#c0c0c0">เลือกประเภทร้านค้า</p>
+                <p *ngFor="let item of categoryShopList" (click)="selectCate(item._id)">{{item.name}}
+                  <img *ngIf="checkeds[item._id]" class="check_po check_icon" src="https://image.flaticon.com/icons/svg/189/189677.svg" alt="icon">
+                </p>
+              </div>
+              <!-- <select name="cateshop" class="form-control" [(ngModel)]="shop.categories" multiple>
+                <option value="" disabled>เลือกประเภทร้านค้า</option>
+                <option *ngFor="let item of categoryShopList" [value]="item._id">{{item.name}}</option>
+              </select>
+              <div class="b-red">* กรณีเลือกหลายประเภทให้กด Ctrl ค้าง</div> -->
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="ชื่อร้าน" name="shopName" [(ngModel)]="shop.name">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="ชื่อร้าน (ภาษาอังกฤษ)" name="shopNameEn" [(ngModel)]="shop.name_eng">
+              </div>
+
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="รายละเอียดร้าน" name="detail" [(ngModel)]="shop.detail">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-md-6 col-sm-6 col-xs-12">
+      <div class="card">
+        <div class="card-header cw">
+          ข้อมูลการติดต่อ
+        </div>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="อีเมล" naem="email" [(ngModel)]="shop.email">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="หมายเลขโทรศัพท์" naem="tel" [(ngModel)]="shop.tel">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Facebook" naem="Facebook" [(ngModel)]="shop.facebook">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Line" naem="Line" [(ngModel)]="shop.line">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="card">
+        <div class="card-header cw">
+          ข้อมูลการเปิดปิดร้าน
+        </div>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-3" (click)="openTime()">
+              <img class="img" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511499758/pp_clfpol.jpg" alt="image">
+            </div>
+            <div class="col-md-2" *ngFor="let item of timeList;let i = index">
+              <div class="card card-time-size" style="margin: 0px 0;">
+                <span class="bin" (click)="deleteTime(i)">
+                  <i class="material-icons">delete</i>
+                </span>
+                <div class="card-block text-center">
+                  <h4 class="card-title" style="text-align: center;">{{item.description}}</h4>
+                  <p class="card-text">เวลาเปิด {{item.timestart}} น.</p>
+                  <p class="card-text">เวลาปิด {{item.timeend}} น.</p>
+                  <div class="time-elaspe">
+                    <span *ngFor="let item2 of item.days">{{item2}} </span>
+                  </div>
+                </div>
+                <!-- <ul class="list-group list-group-flush"> -->
+
+                <!-- <li class="list-group-item" *ngFor="let item2 of item.days"></li> -->
+                <!-- </ul> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="showeditTime">
+            <div class="col-xs-12">
+              <div class="card">
+                <div class="card-block">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="รายละเอียด" name="timeDetail" [(ngModel)]="times.description">
+                  </div>
+                  <div class="form-group">
+                    <input type="time" class="form-control" placeholder="เวลาเปิด" name="start" [(ngModel)]="times.timestart">
+                  </div>
+                  <div class="form-group">
+                    <input type="time" class="form-control" placeholder="เวลาปิด" name="end" [(ngModel)]="times.timeend">
+                  </div>
+
+                  <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item" (click)="selectDay(0)">วันอาทิตย์
+                      <span class="check" *ngIf="selectDate[0]">
+                        <i class="material-icons">done</i>
+                      </span>
+                    </li>
+                    <li class="list-group-item" (click)="selectDay(1)">วันจันทร์
+                      <span class="check" *ngIf="selectDate[1]">
+                        <i class="material-icons">done</i>
+                      </span>
+                    </li>
+                    <li class="list-group-item" (click)="selectDay(2)">วันอังคาร
+                      <span class="check" *ngIf="selectDate[2]">
+                        <i class="material-icons">done</i>
+                      </span>
+                    </li>
+                    <li class="list-group-item" (click)="selectDay(3)">วันพุธ
+                      <span class="check" *ngIf="selectDate[3]">
+                        <i class="material-icons">done</i>
+                      </span>
+                    </li>
+                    <li class="list-group-item" (click)="selectDay(4)">วันพฤหัสบดี
+                      <span class="check" *ngIf="selectDate[4]">
+                        <i class="material-icons">done</i>
+                      </span>
+                    </li>
+                    <li class="list-group-item" (click)="selectDay(5)">วันศุกร์
+                      <span class="check" *ngIf="selectDate[5]">
+                        <i class="material-icons">done</i>
+                      </span>
+                    </li>
+                    <li class="list-group-item" (click)="selectDay(6)">วันเสาร์
+                      <span class="check" *ngIf="selectDate[6]">
+                        <i class="material-icons">done</i>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="ct">
+              <button class="btn btn-primary" (click)="saveTime()">บันทึก</button>
+              <button class="btn btn-danger" (click)="cancelTime()">ยกเลิก</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="card">
+        <div class="card-header cw">
+          ที่อยู่ร้านค้า
+        </div>
+        <div class="card-block">
+          <div class="form-group">
+            <textarea rows="1" class="form-control ct" placeholder="ที่อยู่" name="addr" [(ngModel)]="address"></textarea>
+            <!-- <input type="text" class="form-control" placeholder="ที่อยู่" [(ngModel)]="address"> -->
+          </div>
+          <p class="pin" (click)="openSelectMap()">
+            <i class="material-icons">room</i>
+          </p>
+        </div>
+        <div *ngIf="showeMap">
+          <input #pacinput id="pac-input" class="controls m2" type="text" placeholder="ค้นหาสถานที่">
+          <div #map class="map"></div>
+          <div class="ct">
+            <button class="btn btn-info" (click)="saveMap()">ยืนยัน</button>
+            <!-- <button class="btn btn-danger" (click)="cancelMap()">ยกเลิก</button> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row" *ngIf="shopID">
+    <div class="col-xs-12">
+      <div class="card">
+        <div class="card-header cw">
+          จัดการสินค้า
+        </div>
+
+        <!-- MANAGE CATE & PRODUCT ZONE -->
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="h" style="border-bottom: none;">Category</h4>
+            </div>
+          </div>
+
+          <div class="row" [dragula]='"zone1"'>
+
+            <!-- ADD CATE -->
+            <div class="col-md-2" (click)="updateCateImg()">
+              <img class="img" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511499758/pp_clfpol.jpg" alt="image">
+            </div>
+            <input type="file" #cateimgInput accept="image/*" [(ngModel)]="cateImg" (change)="onCateImgChange($event,cateModal)" style="visibility: hidden;"
+            />
+            <!-- ADD CATE -->
+
+
+            <!-- SHOW CATEGOY ZONE -->
+            <div class="col-md-2 col-over" *ngFor="let item of categoryList;let i = index">
+              <span class="bin-1">
+                <i class="material-icons add-dropShadow" (click)="deleteCategory(item._id)">delete</i>
+              </span>
+              <div>
+                <img (click)="filterByCate(item._id,i)" [src]="item.image" alt="image" cate-img>
+                <span class="ca ovf">
+                  <p class="text-cate">{{item.name}}</p>
+                </span>
+              </div>
+
+              <span class="pc-1">
+                <i class="material-icons add-dropShadow" (click)="editCategory('edit',cateModal,item)">create</i>
+              </span>
+            </div>
+            <!-- SHOW CATEGOY ZONE -->
+          </div>
+
+          <!-- SHOW PRODUCT IN CATE ZONE -->
+          <div class="row" *ngIf="shop.items && shop.items.length > 0">
+            <div class="col-md-12">
+              <h4 class="h">Products</h4>
+              <div [sortablejs]="shop.items">
+                <div class="row">
+                  <div class="col-md-2 col-over col-bottom" *ngFor="let item of shop.items[selectedCate].products; let i = index">
+                    <div *ngIf="item.name == 'default'">
+                      <img class="img" data-toggle="modal" data-target="#modalproduct" (click)="createProduct(i,selectedCate)" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511499758/pp_clfpol.jpg"
+                        alt="image" cate-img>
+                    </div>
+                    <div *ngIf="item.name !== 'default'">
+                      <img class="img" (click)="editProduct(i,selectedCate)" [src]="item.images[0]" alt="image" cate-img>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <!-- SHOW PRODUCT IN CATE ZONE -->
+        </div>
+        <!-- MANAGE CATE & PRODUCT ZONE -->
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------------- ADD OR EDIT CATEGORY ---------------------- -->
+  <div class="modal fade" #modal tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left"> {{CE_action_category}}หมวดหมู่</h4>
+          <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal(cateModal)">
+            <i class="material-icons" (click)="deleteCategory(item._id)">close</i>
+          </button> -->
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-center">
+              <div class="loader" *ngIf="!updateOrEditCateImg" #loadingControl>
+                <img src="./assets/img/Infinity.gif" alt="">
+              </div>
+              <img class="img-2" *ngIf="updateOrEditCateImg" [src]="updateOrEditCateImg" alt="image">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-left">
+              <div class="form-group">
+                <h5>ชื่อหมวดหมู่</h5>
+                <input type="text" class="form-control" placeholder="Category Name" name="categoryname" [(ngModel)]="category.name">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-center">
+
+              <button class="btn btn-primary" (click)="saveCategory()">บันทึก</button>
+              <button class="btn btn-danger" #dissmissBtn data-dismiss="modal" (click)="cancelCategory(cateModal)">ยกเลิก</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ---------------------- ADD OR EDIT CATEGORY ---------------------- -->
+
+
+
+  <!-- ---------------------- ADD OR EDIT PRODUCT ---------------------- -->
+  <div class="modal fade" #modalproduct tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left"> {{CE_action_product}}สินค้า</h4>
+          <!-- <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal(cateModal)">
+              <i class="material-icons" (click)="deleteCategory(item._id)">close</i>
+            </button> -->
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-center">
+              <div class="loader" *ngIf="!updateOrEditCateImg" #loadingControl>
+                <img src="./assets/img/Infinity.gif" alt="">
+              </div>
+              <img class="img-2" *ngIf="updateOrEditCateImg" [src]="updateOrEditCateImg" alt="image">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-left">
+              <div class="form-group">
+                <h5>ชื่อหมวดหมู่</h5>
+                <input type="text" class="form-control" placeholder="Product name" name="productname" [(ngModel)]="product.name">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-left">
+              <div class="form-group">
+                <h5>ชื่อหมวดหมู่</h5>
+                <input type="text" class="form-control" placeholder="Product name" name="productname" [(ngModel)]="product.name">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-center">
+
+              <button class="btn btn-primary" (click)="saveCategory()">บันทึก</button>
+              <button class="btn btn-danger" #dissmissBtn data-dismiss="modalproduct" (click)="cancelCategory(cateModal)">ยกเลิก</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ---------------------- ADD OR EDIT PRODUCT ---------------------- -->
+
+
+
+
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div class="card">
+        <div class="card-block">
+          <div class="ct">
+            <button class="btn btn-success" (click)="save()">บันทึก</button>
+            <button class="btn btn-danger" (click)="cancelEditShop()">ยกเลิก</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

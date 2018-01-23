@@ -1,0 +1,48 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Kanit', sans-serif;
+}
+.addcampaign {
+    background-color: #ffffff00;
+    color: rgb(34, 143, 34);
+    border-color: rgb(34, 143, 34);
+    border-radius: 4rem;
+    border: 3px solid;
+    font-size: 1.5rem;
+}
+.table-width{
+    width: 100%;
+}
+.modal-width{
+    width: 50%;
+}
+
+.scrollmenu {
+    overflow-x: -webkit-paged-y;
+    white-space: nowrap !important;
+}
+.display-block{
+    display: block;
+}
+.table-body{
+    height: 250px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+.col1{
+    width: 300px;
+}
+.col2{
+    width: 125px;
+}
+.img-size{
+    height: 20rem;
+    width: auto;
+}
+.verti-middle{
+    vertical-align: -webkit-baseline-middle;
+}

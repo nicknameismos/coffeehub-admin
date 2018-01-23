@@ -1,0 +1,344 @@
+<div class="main-content">
+    <div class="container-fluid" style="text-align: center;">
+      <div class="card" *ngIf="showeMainShop" style="width: 68%;">
+        <img class="card-img-top" [src]="shop.coverimage ? shop.coverimage : 'http://res.cloudinary.com/ha7s6qhcg/image/upload/v1512718072/uploadcover_wmvyr4.jpg'"
+          alt="Card image cap" height="315px">
+        <span class="fill"></span>
+        <input type="file" #fileInput accept="image/*" [(ngModel)]="coverImg" (change)="onCoverChange($event)" style="visibility: hidden;"
+        />
+        <span class="camera" (click)="uploadCoverImage()">
+          <i class="material-icons">photo_camera</i>
+        </span>
+        <p class="name">
+          {{shop.name}}
+          <i class="material-icons" (click)="openEditShopDetail()">create</i>
+        </p>
+        <p class="name2">
+          {{shop.detail ? shop.detail: '-'}}
+        </p>
+        <p class="name3">
+          {{address ? address: '-'}} เวลาเปิดปิดร้าน {{openTimeString}}
+        </p>
+        <div class="card-block">
+  
+          <div class="row col-md-4 col-sm-4 col-lg-4" [dragula]='"zone0"'>
+            <div class="">
+              <img class="img" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511519960/camera_bkdxf8.png" alt="image" (click)="uploadPromoteImage()">
+              <input type="file" #promoteimgInput accept="image/*" [(ngModel)]="promoteImg" (change)="onPromoteImgChange($event)" style="visibility: hidden;"
+              />
+            </div>
+  
+  
+            <div class="col-md-2" *ngFor="let item of shop.promoteimage" (dblclick)="prmEdit()">
+              <span class="bin-1" *ngIf="promoteIsEdit == true" (click)="deletePromoteImage(item)">
+                <i class="material-icons">delete</i>
+              </span>
+              <img class="img" [src]="item" alt="image">
+            </div>
+          </div>
+  
+          <div class="row">
+            <h3 class="h" style="border-bottom: none;">Category</h3>
+          </div>
+  
+  
+          <div class="row" [dragula]='"zone1"'>
+            <div class="col-md-2" (click)="createCategory()">
+              <img class="img" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511499758/pp_clfpol.jpg" alt="image">
+            </div>
+            <div class="col-md-2" *ngFor="let item of categoryList">
+              <span class="bin-1">
+                <i class="material-icons" (click)="deleteCategory(item._id)">delete</i>
+              </span>
+              <img (click)="filterByCate(item._id)" class="img" [src]="item.image" alt="image" width="500px" height="355px">
+              <span class="ca ovf">
+                {{item.name}}
+              </span>
+              <span class="pc-1">
+                <i class="material-icons" (click)="editCategory(item)">create</i>
+              </span>
+            </div>
+          </div>
+  
+          <h3 class="h">Product</h3>
+  
+  
+          <div class="row" [dragula]='"zone2"'>
+            <div class="col-md-2" (click)="createProduct()">
+              <img class="img" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511499758/pp_clfpol.jpg" alt="image">
+            </div>
+            <div class="col-md-2" *ngFor="let item of products">
+              <span class="bin-1">
+                <i class="material-icons" (click)="deleteProduct(item._id)">delete</i>
+              </span>
+              <img class="img" [src]="item.images" alt="image">
+              <span class="ca ovf">
+                {{item.name}} {{item.price | number}}
+              </span>
+              <span class="pc-1">
+                <i class="material-icons" (click)="editProduct(item)">create</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+  
+  
+  
+      <!-- //////////////////////////edit shop///////////// -->
+  
+      <div class="card" *ngIf="showeditdiv" style="width:43.4%;">
+        <div class="card-header cw">
+          ข้อมูลร้านค้า
+        </div>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-8">
+              <select name="cateshop" class="form-control" [(ngModel)]="shop.categories">
+                <option value="">เลือกประเภทร้านค้า</option>
+                <option *ngFor="let item of categoryShopList" [value]="item._id">{{item.name}}</option>
+              </select>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="ชื่อร้าน" naem="shopName" [(ngModel)]="shop.name">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="ชื่อร้าน (ภาษาอังกฤษ)" naem="shopNameEn" [(ngModel)]="shop.name_eng">
+              </div>
+  
+            </div>
+            <div class="col-md-4">
+              <img class="img-2" style="margin-left: 0%;margin-top: 60px;" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511519960/camera_bkdxf8.png"
+                alt="image">
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="รายละเอียดร้าน" naem="detail" [(ngModel)]="shop.detail">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="อีเมล" naem="email" [(ngModel)]="shop.email">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="หมายเลขโทรศัพท์" naem="tel" [(ngModel)]="shop.tel">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Facebook" naem="Facebook" [(ngModel)]="shop.facebook">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Line" naem="Line" [(ngModel)]="shop.line">
+              </div>
+              <!-- card list -->
+  
+              <div class="row">
+                <div class="col-md-4" (click)="openTime()">
+                  <img class="img" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511499758/pp_clfpol.jpg" alt="image">
+                </div>
+                <div class="col-md-4" *ngFor="let item of timeList;let i = index">
+                  <div class="card" style="margin: 0px 0;">
+                    <span class="bin" (click)="deleteTime(i)">
+                      <i class="material-icons">delete</i>
+                    </span>
+                    <div class="card-block">
+                      <h4 class="card-title" style="text-align: center;">{{item.description}}</h4>
+                      <p class="card-text">เวลาเปิด {{item.timestart}} น.</p>
+                      <p class="card-text">เวลาปิด {{item.timeend}} น.</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item" *ngFor="let item2 of item.days">{{item2}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <textarea rows="6" class="form-control" placeholder="ที่อยู่" name="addr" [(ngModel)]="address"></textarea>
+              </div>
+              <p class="pin" (click)="openSelectMap()">
+                <i class="material-icons">room</i>
+              </p>
+            </div>
+          </div>
+          <div class="ct">
+            <button class="btn btn-primary" (click)="save()">บันทึก</button>
+            <button class="btn btn-danger" (click)="cancelEditShop()">ยกเลิก</button>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card" *ngIf="showeditTime" style="width:43.4%;">
+        <div class="card-header cw">
+          เวลาเปิดปิดร้านเวลาเปิดปิดร้าน
+        </div>
+        <div class="card-block">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="รายละเอียด" name="timeDetail" [(ngModel)]="times.description">
+              </div>
+              <div class="form-group">
+                <input type="time" class="form-control" placeholder="เวลาเปิด" name="start" [(ngModel)]="times.timestart">
+              </div>
+              <div class="form-group">
+                <input type="time" class="form-control" placeholder="เวลาปิด" name="end" [(ngModel)]="times.timeend">
+              </div>
+  
+              <ul class="list-group list-group-flush">
+  
+                <li class="list-group-item" (click)="selectDay(0)">วันอาทิตย์
+                  <span class="check" *ngIf="selectDate[0]">
+                    <i class="material-icons">done</i>
+                  </span>
+                </li>
+                <li class="list-group-item" (click)="selectDay(1)">วันจัทร์
+                  <span class="check" *ngIf="selectDate[1]">
+                    <i class="material-icons">done</i>
+                  </span>
+                </li>
+                <li class="list-group-item" (click)="selectDay(2)">วันอังคาร
+                  <span class="check" *ngIf="selectDate[2]">
+                    <i class="material-icons">done</i>
+                  </span>
+                </li>
+                <li class="list-group-item" (click)="selectDay(3)">วันพุธ
+                  <span class="check" *ngIf="selectDate[3]">
+                    <i class="material-icons">done</i>
+                  </span>
+                </li>
+                <li class="list-group-item" (click)="selectDay(4)">วันพฤหัสบดี
+                  <span class="check" *ngIf="selectDate[4]">
+                    <i class="material-icons">done</i>
+                  </span>
+                </li>
+                <li class="list-group-item" (click)="selectDay(5)">วันศุกร์
+                  <span class="check" *ngIf="selectDate[5]">
+                    <i class="material-icons">done</i>
+                  </span>
+                </li>
+                <li class="list-group-item" (click)="selectDay(6)">วันเสาร์
+                  <span class="check" *ngIf="selectDate[6]">
+                    <i class="material-icons">done</i>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="ct">
+            <button class="btn btn-primary" (click)="saveTime()">บันทึก</button>
+            <button class="btn btn-danger" (click)="cancelTime()">ยกเลิก</button>
+          </div>
+        </div>
+      </div>
+  
+  
+      <!-- //////////////////add and edit address ////// -->
+  
+  
+  
+      <div class="card" *ngIf="showeMap" style="width:43.4%;">
+        <div class="card-header cw">
+          ที่อยู่ร้านค้า
+        </div>
+        <div class="card-block">
+          <input #pacinput id="pac-input" class="controls m2" type="text" placeholder="ค้นหาสถานที่">
+          <div #map class="map"></div>
+          <div class="ct">
+            <button class="btn btn-primary" (click)="saveMap()">บันทึก</button>
+            <button class="btn btn-danger" (click)="cancelMap()">ยกเลิก</button>
+          </div>
+        </div>
+      </div>
+  
+  
+      <!-- //////////////////add and edit product ////// -->
+  
+      <div class="card" *ngIf="showAddProduct" style="width: 43.4%;padding: 26px;">
+        <div class="card-header cw">
+          {{CE_action_product}}สินค้า
+        </div>
+        <div class="card-block">
+  
+          <div class="row" style="margin-left: -66px;">
+            <div class="col-md-4" *ngIf="addPrdImg !== 3">
+              <!-- <span class="bin-2" (click)="deleteTime(i)">
+                <i class="material-icons">delete</i>
+              </span> -->
+  
+              <!-- <img class="img-2" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511519960/camera_bkdxf8.png" (click)="uploadPrdImage()" alt="image"> -->
+              <img class="img-2" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511519960/camera_bkdxf8.png" alt="image">
+              <!-- <input type="file" #prdimgInput accept="image/*" [(ngModel)]="prdImg" (change)="onPrdImgChange($event)" style="visibility: hidden;"
+              /> -->
+            </div>
+            <div class="col-md-4" *ngFor="let item of product.images; let i = index">
+              <span class="bin-2" (click)="deletePrdImg(i)">
+                <i class="material-icons">delete</i>
+              </span>
+              <img class="img-2" [src]="item" alt="image">
+  
+            </div>
+  
+          </div>
+  
+          <div class="form-group">
+            <select class="form-control" name="cate" [(ngModel)]="product.categories">
+              <option value="">เลือกหมวดหมู่อาหาร</option>
+              <option *ngFor="let item of categoryList" [value]="item._id">{{item.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Product Name" name="productname" [(ngModel)]="product.name">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Price" name="price" [(ngModel)]="product.price">
+          </div>
+          <div class="ct">
+            <button class="btn btn-primary" (click)="saveProduct()">บันทึก</button>
+            <button class="btn btn-danger" (click)="canselSaveProduct()">ยกเลิก</button>
+          </div>
+        </div>
+      </div>
+  
+  
+      <!-- //////////////////add and edit category ////// -->
+  
+      <div class="card" *ngIf="showAddCategory" style="width: 43.4%;padding: 26px;">
+        <div class="card-header cw">
+          {{CE_action_category}}หมวดหมู่
+        </div>
+        <div class="card-block">
+  
+          <div class="row">
+            <div class="col-md-4">
+  
+            </div>
+            <div class="col-md-4">
+              <span class="bin-3" (click)="deleteTime(i)">
+                <i class="material-icons">delete</i>
+              </span>
+              <img class="img-2" *ngIf="!updateOrEditCateImg" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511519960/camera_bkdxf8.png"
+              (click)="updateCateImg()" alt="image">
+              <img class="img-2" *ngIf="!updateOrEditCateImg && !category.image" src="http://res.cloudinary.com/ha7s6qhcg/image/upload/v1511519960/camera_bkdxf8.png"
+                (click)="updateCateImg()" alt="image">
+              <img class="img-2" *ngIf="updateOrEditCateImg " [src]="updateOrEditCateImg" (click)="updateCateImg()" alt="image">
+              <input type="file" #cateimgInput accept="image/*" [(ngModel)]="cateImg" (change)="onCateImgChange($event)" style="visibility: hidden;"
+              />
+            </div>
+            <div class="col-md-4">
+  
+            </div>
+          </div>
+  
+  
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Category Name" naem="categoryname" [(ngModel)]="category.name">
+          </div>
+          <div class="ct">
+            <button class="btn btn-primary" (click)="saveCategory()">บันทึก</button>
+            <button class="btn btn-danger" (click)="cancelCategory()">ยกเลิก</button>
+          </div>
+        </div>
+      </div>
+  
+  
+    </div>
+  </div>
