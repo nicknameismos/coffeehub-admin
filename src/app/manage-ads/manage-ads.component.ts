@@ -89,9 +89,6 @@ export class ManageAdsComponent implements OnInit {
     this.CE_action_ads = "แก้ไข";
     let itemdata = JSON.parse(JSON.stringify(item));
     this.adsEditDATA = itemdata;
-    // console.log(item.effectivedatestart.toUTCString());
-    // item.effectivedatestart = item.effectivedatestart.toLocaleDateString();
-    // item.effectivedateend = item.effectivedateend.toLocaleDateString();
     console.log(this.adsEditDATA);
     if (item.isvideo == false) {
       this.type = 'image';
@@ -99,8 +96,6 @@ export class ManageAdsComponent implements OnInit {
       this.type = 'vdo';
       this.vdolink = this.yt + item.videoid;
     }
-
-    // this.adsEditDATA = item;
     this.adsEditDATA.effectivedatestart = this.adsEditDATA.effectivedatestart.toString().substring(0, 10);
     this.adsEditDATA.effectivedateend = this.adsEditDATA.effectivedateend.toString().substring(0, 10);
     this.adsStatus = item.status;
@@ -113,7 +108,6 @@ export class ManageAdsComponent implements OnInit {
 
   changeType() {
     if (this.type == 'image') {
-      // this.adsvdoAdding = null;
       this.vdolinkinput = null;
     } else if (this.type == 'vdo') {
       this.adsimgAdding = null;
@@ -213,8 +207,8 @@ export class ManageAdsComponent implements OnInit {
               videoid: this.adsDATA.vdolink,
               isvideo: true,
               website: this.adsDATA.website,
-              effectivedatestart: this.adsDATA.effectivedatestart.toISOString(),
-              effectivedateend: this.adsDATA.effectivedateend.toISOString(),
+              effectivedatestart: this.adsDATA.effectivedatestart,
+              effectivedateend: this.adsDATA.effectivedateend,
               status: this.adsStatus
             }
             this.ADSservice.postAds(sendADS).subscribe((data) => {

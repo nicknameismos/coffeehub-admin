@@ -627,32 +627,7 @@ export class CreateShopComponent implements OnInit {
     }
   }
 
-  // saveProduct() {
-  //   if (this.CE_action_product == 'เพิ่ม') {
-  //     this.product.shop = this.shopID;
-  //     // this.product.images = ['http://www.terminal21.co.th/asok/uploaded/content/FujiLogo.jpg'];
-  //     this.shopService.saveProduct(this.product).subscribe(data => {
-  //       console.log(data);
-  //       this.showeMainShop = true;
-  //       this.showAddProduct = false;
-  //       location.reload();
-  //     }, err => {
-  //       console.log(err);
-  //     });
-  //   } else {
-  //     this.product._id = this.CE_id_product;
-  //     this.product.shop = this.shopID;
-  //     // this.product.images = ['http://www.terminal21.co.th/asok/uploaded/content/FujiLogo.jpg'];
-  //     this.shopService.editProduct(this.product).subscribe(data => {
-  //       console.log(data);
-  //       this.showeMainShop = true;
-  //       this.showAddProduct = false;
-  //       location.reload();
-  //     }, err => {
-  //       console.log(err);
-  //     });
-  //   }
-  // }
+ 
   getCurrentGeolocation(): Promise<any> {
     return new Promise((resolve, reject) => {
 

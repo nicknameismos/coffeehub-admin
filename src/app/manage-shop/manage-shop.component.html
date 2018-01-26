@@ -92,7 +92,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngIf="shopsL.items.length <=0">
+                    <tr *ngIf="shopsL.items && shopsL.items.length ==0">
                       <td colspan="7" class="text-center">
                         ยังไม่มีข้อมูลร้านค้าในระบบค่ะ
                       </td>

@@ -21,18 +21,18 @@
           </div>
           <div class="panel-body">
             <div class="row scrollmenu">
-              <div class="col-xs-6 col-md-3 col-scroll " *ngFor="let item1 of listAdsActive">
+              <div class="col-xs-6 col-md-3 col-scroll col-lg-3" *ngFor="let item1 of listAdsActive">
                 <a class="thumbnail" (click)="editADS(item1)" *ngIf="item1.isvideo == false">
                   <img [src]="item1.image" alt="...">
                   <div class="block-text">
-                    <span class="ads-text">{{item1.name}}</span>
+                    <span class="ads-text ">{{item1.name}}</span>
                   </div>
                 </a>
                 <a *ngIf="item1.isvideo == true" class="thumbnail" (click)="editADS(item1)">
                   <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(yt + item1.videoid)" width="180" height="100" frameborder="0" allow="encrypted-media"
                     allowfullscreen></iframe>
                   <div class="block-text">
-                    <span class="ads-text">{{item1.name}}</span>
+                    <span class="ads-text ">{{item1.name}}</span>
                   </div>
                 </a>
               </div>
@@ -48,15 +48,15 @@
           </div>
           <div class="panel-body">
             <div class="row scrollmenu">
-              <div class="col-xs-6 col-md-3" *ngFor="let item2 of listAdsInActive">
-                <a (click)="editADS(item2)" class="thumbnail">
+              <div class="col-xs-6 col-md-3 col-lg-3" *ngFor="let item2 of listAdsInActive">
+                <a (click)="editADS(item2)" class="thumbnail" *ngIf="item2.isvideo == false">
                   <img [src]="item2.image" alt="...">
                   <div class="block-text">
                     <span class="ads-text">{{item2.name}}</span>
                   </div>
                 </a>
                 <a *ngIf="item2.isvideo == true" class="thumbnail" (click)="editADS(item2)">
-                  <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(yt + item2.videoid)" width="180" height="100" frameborder="0" allow="encrypted-media"
+                  <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(yt + item2.videoid)" width="180" height="120" frameborder="0" allow="encrypted-media"
                     allowfullscreen></iframe>
                   <div class="block-text">
                     <span class="ads-text">{{item2.name}}</span>
@@ -75,8 +75,9 @@
           </div>
           <div class="panel-body">
             <div class="row scrollmenu">
-              <div class="col-xs-6 col-md-3" *ngFor="let item3 of listAdsExpired">
-                <a (click)="editADS(item3)" class="thumbnail">
+              <div class="col-xs-6 col-md-3 col-lg-3" *ngFor="let item3 of listAdsExpired">
+                <!-- <div class="thumbnail--div-size" *ngFor="let item3 of listAdsExpired"> -->
+                <a (click)="editADS(item3)" class="thumbnail" *ngIf="item3.isvideo == false">
                   <img [src]="item3.image" alt="...">
                   <div class="block-text">
                     <span class="ads-text">{{item3.name}}</span>
@@ -90,6 +91,7 @@
                   </div>
                 </a>
               </div>
+              <!-- </div> -->
 
             </div>
           </div>
@@ -162,7 +164,7 @@
               </div>
               <div class="media-body">
                 <div class="input-group">
-                  <label class="control-label">YOUTUBE Video ID</label>
+                  YOUTUBE Video ID
                   <input type="text" class="form-control" [(ngModel)]="vdolinkinput">
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-success" (click)="upLink(vdolinkinput)">ยืนยัน</button>
@@ -178,21 +180,21 @@
           </div>
           <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
             <div class="form-group form-black floating is-empty">
-              <label class="control-label">ชื่อโฆษณา</label>
+              ชื่อโฆษณา
               <input type="text" class="form-control" [(ngModel)]="adsDATA.name">
             </div>
             <div class="form-group form-black floating is-empty">
-              <label class="control-label">วันที่เริ่มต้น</label>
+              วันที่เริ่มต้น
               <input type="date" class="form-control" [(ngModel)]="adsDATA.effectivedatestart">
             </div>
           </div>
           <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
             <div class="form-group form-black floating is-empty">
-              <label class="control-label">ลิงค์</label>
+              ลิงค์
               <input type="text" class="form-control" [(ngModel)]="adsDATA.website">
             </div>
             <div class="form-group form-black floating is-empty">
-              <label class="control-label">วันที่สิ้นสุด</label>
+              วันที่สิ้นสุด
               <input type="date" class="form-control" [(ngModel)]="adsDATA.effectivedateend">
             </div>
           </div>
@@ -203,7 +205,7 @@
           </div>
           <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
             <div class="form-group form-black floating is-empty">
-              <label class="control-label">รายละเอียด</label>
+              รายละเอียด
               <input type="text" class="form-control" [(ngModel)]="adsDATA.description">
             </div>
           </div>
@@ -214,7 +216,7 @@
         </div>
         <div class="row">
           <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-center">
-            <button class="btn btn-danger" #dissmissBtn data-dismiss="modalads" (click)="cancelSave()">ยกเลิก</button>
+            <button class="btn btn-default" #dissmissBtn data-dismiss="modalads" (click)="cancelSave()">ยกเลิก</button>
             <button class="btn btn-success" (click)="saveADS()">บันทึก</button>
           </div>
         </div>
@@ -263,7 +265,7 @@
               </div>
               <div class="media-body">
                 <div class="input-group">
-                  <label class="control-label">YOUTUBE Video ID</label>
+                  YOUTUBE Video ID
                   <input type="text" class="form-control" [(ngModel)]="vdolinkinput">
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-success" (click)="upLink(vdolinkinput)">ยืนยัน</button>
@@ -279,22 +281,22 @@
           </div>
           <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
             <div class="form-group form-black floating is-empty">
-              <label class="control-label">ชื่อโฆษณา</label>
+              ชื่อโฆษณา
               <input type="text" class="form-control" [(ngModel)]="adsEditDATA.name">
             </div>
             <div class="form-group form-black floating is-empty">
-              <label class="control-label">วันที่เริ่มต้น</label>
+              วันที่เริ่มต้น
               <input type="date" [(ngModel)]="adsEditDATA.effectivedatestart" class="form-control">
               <!-- <input [(ngModel)]="adsDATA.effectivedatestart" [value]="adsDATA.effectivedatestart"> -->
             </div>
           </div>
           <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 text-left">
             <div class="form-group form-black floating is-empty">
-              <label class="control-label">ลิงค์</label>
+              ลิงค์
               <input type="text" class="form-control" [(ngModel)]="adsEditDATA.website">
             </div>
             <div class="form-group form-black floating is-empty">
-              <label class="control-label">วันที่สิ้นสุด</label>
+              วันที่สิ้นสุด
               <input type="date" class="form-control" [(ngModel)]="adsEditDATA.effectivedateend">
             </div>
           </div>
@@ -305,7 +307,7 @@
           </div>
           <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
             <div class="form-group form-black floating is-empty">
-              <label class="control-label">รายละเอียด</label>
+              รายละเอียด
               <input type="text" class="form-control" [(ngModel)]="adsEditDATA.description">
             </div>
           </div>
@@ -314,9 +316,9 @@
         </div>
         <div class="row">
         </div>
-        <div class="modal-footer">
+        <div class="row">
           <div class="col-lg-12 col-mg-12 col-sm-12 col-xs-12 text-center">
-            <button class="btn btn-danger" #dissmissBtn data-dismiss="modalads" (click)="cancelSave()">ยกเลิก</button>
+            <button class="btn btn-default" #dissmissBtn data-dismiss="modalads" (click)="cancelSave()">ยกเลิก</button>
             <button class="btn btn-success" (click)="saveADS()">บันทึก</button>
           </div>
         </div>

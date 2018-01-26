@@ -26,64 +26,35 @@
               <table class="table table-hover">
                 <thead class="text-danger">
                   <tr>
-                    <th index-col-size>#</th>
-                    <th index-col-size></th>
-                    <th name-col-size>ชื่อแคมเปญ</th>
-                    <th class="text-center col-md-2 tel-col-size">ช่วงเวลา</th>
-                    <th adr-column-width>วันที่เริ่มต้น</th>
-                    <th class="text-center col-md-2 input-col-size">วันที่สิ้นสุด</th>
-                    <th class="text-center col-md-1">สถานะ</th>
-                    <th class="text-center col-md-1 col-lg-1 action-col-size">
-                    </th>
+                    <th class="text-center col-md-1">#</th>
+                    <th class="text-center">ชื่อแคมเปญ</th>
+                    <th class="text-center col-md-2">การแจก coin</th>
+                    <th class="text-center col-md-2">วันที่เริ่มต้น</th>
+                    <th class="text-center col-md-2 ">วันที่สิ้นสุด</th>
+                    <th class="text-center col-md-2">สถานะ</th>
+
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngIf="campaignList.length <=0">
+                  <tr *ngIf="campaignList && campaignList.length == 0">
                     <td colspan="7" class="text-center">
                       ยังไม่มีข้อมูลแคมเปญในระบบค่ะ
                     </td>
 
                   </tr>
-                  <!-- <tr *ngFor="let item of shopsL.items; let i = index ">
-                    <td (click)="editShop(item)">{{i + pageSelect + 1}}</td>
-                    <td (click)="editShop(item)">{{item.name}}</td>
-                    <td class="text-center" (click)="editShop(item)">{{item.tel ? item.tel: '-'}}</td>
-                    <td *ngIf="!item.address" (click)="editShop(item)">ไม่ปรากฎที่อยู่ร้าน</td>
-                    <td *ngIf="item.address" (click)="editShop(item)" class="adr-ovf">{{item.address.address ? item.address.address: '-'}}</td>
-                    <td class="text-center" (click)="editShop(item)">{{item.importform}}
-                      <p subText>by {{item.user.firstName}}</p>
-                    </td>
+                  <tr *ngFor="let campaign of campaignList; let i = index ">
+                    <td class="text-center" (click)="editCampaign(campaign)">{{i + 1}}</td>
+                    <td (click)="editCampaign(campaign)">{{campaign.name}}</td>
+                    <td class="text-center" (click)="editCampaign(campaign)">{{campaign.coin_give}} coin</td>
+                    <td class="text-center" (click)="editCampaign(campaign)">{{campaign.effectivedatestart | date: 'short'}}</td>
+                    <td class="text-center" (click)="editCampaign(campaign)">{{campaign.effectivedateend | date: 'short'}}</td>
                     <td class="text-center ">
-
-                      <button class="btn btn-success btn-simple btn-xs btn-border" type="button" *ngIf="!item.issendmail && item.email" (click)="isSendMail(item)">
-                        SEND USER
-                      </button>
-                      <p *ngIf="item.issendmail">Joined</p>
-                    </td>
-                    <td class="text-center">
-                      <ui-switch [(ngModel)]="item.isactiveshop" (change)="activeChange($event,item)"></ui-switch>
-
-
-                      <div class="dropdown pull-right">
-                        <button class="btn btn-simple btn-xs pull-right dropdown-toggle " type="button" id="dropdownMenu2" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="true">
-                          <i class="material-icons toggle-color">more_horiz</i>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                          <span (click)="editShop(item)">
-                            <i class="material-icons edit-color">border_color</i>
-                          </span>
-                          <span (click)="deleteShop(item._id)">
-                            <i class="material-icons del-color">delete</i>
-                          </span>
-
-                        </ul>
-                      </div>
-
+                      <span *ngIf="campaign.status == true">ใช้งานอยู่</span>
+                      <span *ngIf="campaign.status == false">ปิดการใช้งาน</span>
                     </td>
                   </tr>
 
-                <!-- </tbody> -->
+                </tbody>
               </table>
 
               <!-- <div class="pc">
@@ -123,9 +94,9 @@
       <div class="modal-body">
         <span>
           ชื่อประเภทแคมเปญ :
-          <input type="text" name="" id="" [(ngModel)]="name">
+          <input type="text" name="" id="" [(ngModel)]="campTypename">
 
-          <button type="button" class="btn btn-success" (click)="addType(name)">เพิ่ม</button>
+          <button type="button" class="btn btn-success" (click)="addType(campTypename)">เพิ่ม</button>
         </span>
 
         <table class="table-width table">
@@ -173,9 +144,10 @@
             </h4>
           </div>
           <div class="col-lg-3 text-right verti-middle">
+
             <span class="text-status">
               สถานะ :
-              <ui-switch size="small" [(ngModel)]="adsStatus" (change)="activeChange($event)"></ui-switch>
+              <ui-switch size="small" [(ngModel)]="campaignData.status"></ui-switch>
             </span>
           </div>
         </div>
@@ -184,48 +156,71 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <img (click)="selectCampaignImg()" class="img-size" src="./assets/img/Campaign-banner.png" alt="" *ngIf="campimgAdding == null">
+            <img (click)="selectCampaignImg()" class="img-size" src="./assets/img/Campaign-banner.png" alt="" *ngIf="!campimgAdding">
             <input #uploadCampaign type="file" accept="image/x-png,image/jpeg" (change)="onCampaignImgChange($event)" style="visibility:hidden;">
             <img (click)="selectCampaignImg()" class="img-size" [src]="campimgAdding" alt="" *ngIf="campimgAdding">
           </div>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center"></div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
+            <div class="form-group form-black floating is-empty">
+              ชื่อแคมเปญ
+              <input type="text" class="form-control" name="" id="" [(ngModel)]="campaignData.name">
             </div>
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
-              </div>
-        <div class="form-group form-black floating is-empty">
-          <label class="control-label">ชื่อแคมเปญ</label>
-          <input type="text" name="" id="" [(ngModel)]="camp.name">
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center"></div>
+        </div>
+        <div class="row">
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+            <div class="form-group form-black floating is-empty">
+              ประเภทแคมเปญ
+              <select class="form-control" [(ngModel)]="campaignData.type">
+                <option value="{{item._id}}" *ngFor="let item of campaignTypeList">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
+            <div class="form-group form-black floating is-empty">
+              แจก Coin
+              <input type="number" placeholder="ระบุจำนวน coin ที่ต้องการแจกในแคมเปญนี้" class="form-control" name="" id="" [(ngModel)]="campaignData.coin_give">
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 ">
+
+            <div class="form-group form-black floating is-empty">
+            รายละเอียด
+              <input type="text" class="form-control" name="" id="" [(ngModel)]="campaignData.detail">
+            </div>
+
+
+            <span>
+             วันที่เริ่มต้น : 
+              <input type="datetime-local" class="date-input-width" name="" id="" [(ngModel)]="campaignData.effectivedatestart">
+              วันที่สิ้นสุด :
+              <input type="datetime-local" class="date-input-width" name="" id="" [(ngModel)]="campaignData.effectivedateend">
+            </span>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center">
+          </div>
         </div>
 
-        <table class="table-width table">
-          <thead class="text-danger display-block">
-            <tr>
-              <th class="text-center col1">ชื่อประเภทแคมเปญ</th>
-              <th class="col2"></th>
-            </tr>
-          </thead>
-          <tbody class="display-block table-body">
-            <tr *ngFor="let item of campaignTypeList" class="no-padding">
-              <td class="col1">
-                {{item.name}}
-              </td>
-              <td class="text-center col2">
-                <button class="btn btn-danger btn-sm" (click)="deleteCampType(item)">
-                  <i class="material-icons">delete_forever</i>
-                </button>
 
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" #dissmissBtn class="btn btn-default" data-dismiss="modal">ปิด</button>
+        <div class="modal-footer text-center">
+          <button type="button" class="btn btn-default" (click)="cancelAddCampaign()">ยกเลิก</button>
+          <button type="button" *ngIf="campaignData._id" class="btn btn-danger" (click)="deleteCampaign(campaignData)">ลบแคมเปญนี้</button>
+          <button type="button" class="btn btn-success" (click)="saveCampaign()">บันทึก</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- /////////////////////////////////MODAL MANAGE CAMPAIGN///////////////////////// -->
+  <!-- /////////////////////////////////MODAL MANAGE CAMPAIGN///////////////////////// -->

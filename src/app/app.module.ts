@@ -53,8 +53,9 @@ import { SortablejsModule } from 'angular-sortablejs';
 import { PubSubModule } from 'angular2-pubsub';
 import { ADSService } from 'app/manage-ads/manage-ads.service';
 import { DatePipe } from '@angular/common';
-import { ManageCampaignComponent } from './manage-campaign/manage-campaign.component';
+import { ManageCampaignComponent } from 'app/manage-campaign/manage-campaign.component';
 import { CampaignService } from 'app/manage-campaign/manage-campaign.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +79,7 @@ import { CampaignService } from 'app/manage-campaign/manage-campaign.service';
     LoginComponent,
     ManageUserComponent,
     ManageAdsComponent,
-    ManageCampaignComponent,
+    ManageCampaignComponent
     // Pipe
   ],
   imports: [

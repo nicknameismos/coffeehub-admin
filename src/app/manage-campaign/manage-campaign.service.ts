@@ -25,15 +25,27 @@ export class CampaignService {
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error));
     }
+    postCampaign(data): Observable<any> {
+        return this.http.post(this.server.url + 'api/campaigns/', data, this.server.AuthHeaders())
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error));
+    }
+
     deleteCampType(data): Observable<any> {
         return this.http.delete(this.server.url + 'api/campaignmasters/' + data._id, this.server.AuthHeaders())
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error));
     }
 
+    deleteCampaign(data): Observable<any> {
+        return this.http.delete(this.server.url + 'api/campaigns/' + data._id, this.server.AuthHeaders())
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error));
+    }
 
-    editAds(data): Observable<any> {
-        return this.http.put(this.server.url + 'api/ads/' + data._id, data, this.server.AuthHeaders())
+
+    putCampaign(data): Observable<any> {
+        return this.http.put(this.server.url + 'api/campaigns/' + data._id, data, this.server.AuthHeaders())
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error));
     }

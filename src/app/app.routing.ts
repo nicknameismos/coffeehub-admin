@@ -51,8 +51,8 @@ const routes: Routes = [
     }]
   },
   { path: 'manage-ads', component: ManageAdsComponent},
-  { path: 'manage-campaign', component: ManageCampaignComponent},  
   { path: 'manage-user', component: ManageUserComponent},
+  { path: 'manage-campaign', component: ManageCampaignComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
